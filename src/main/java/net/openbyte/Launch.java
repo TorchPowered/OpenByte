@@ -1,11 +1,15 @@
 package net.openbyte;
 
 import net.openbyte.data.Files;
+import net.openbyte.data.file.OpenProjectSolution;
+import net.openbyte.gui.WelcomeFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * The entry point class when launching the application.
@@ -13,6 +17,8 @@ import java.io.FilenameFilter;
 public class Launch {
 
     public static final Logger logger = LoggerFactory.getLogger("OpenByte");
+    public static final ArrayList<String> projectNames = new ArrayList<String>();
+    public static final HashMap<String, OpenProjectSolution> nameToSolution = new HashMap<String, OpenProjectSolution>();
 
     public static void main(String[] args){
         logger.info("Checking for a workspace folder...");
@@ -27,5 +33,18 @@ public class Launch {
                 return name.endsWith(".openproj");
             }
         });
+        logger.info("Compiling project names of the project files...");
+        for (File projectFile : projectFiles){
+            OpenProjectSolution solution = OpenProjectSolution.getProjectSolutionFromFile(projectFile);
+            nameToSolution.put(solution.getProjectName(), solution);
+            projectNames.add(solution.getProjectName());
+        }
+        logger.info("Placing project names inside of recent projects...");
+        for (String projectName : projectNames){
+            WelcomeFrame.listItems.addElement(projectName);
+        }
+        logger.info("Showing graphical interface to user...");
+        WelcomeFrame welcomeFrame = new WelcomeFrame();
+        welcomeFrame.setVisible(true);
     }
 }

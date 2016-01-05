@@ -11,8 +11,11 @@ import javax.swing.*;
  * @author Gary Lee
  */
 public class WelcomeFrame extends JFrame {
+    public static DefaultListModel listItems = new DefaultListModel();
+
     public WelcomeFrame() {
         initComponents();
+        list1.setModel(listItems);
     }
 
     private void initComponents() {
