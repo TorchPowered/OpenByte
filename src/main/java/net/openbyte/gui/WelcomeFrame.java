@@ -29,11 +29,11 @@ public class WelcomeFrame extends JFrame {
     }
 
     private void button2ActionPerformed(ActionEvent e) {
-        openWebpage("https://github.com/PizzaCrust/OpenByte");
+        openWebpage("http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-tools/2420242-craftbyte-mod-ide-the-ide-for-mod-developers");
     }
 
     private void button3ActionPerformed(ActionEvent e) {
-        openWebpage("http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-tools/2420242-craftbyte-mod-ide-the-ide-for-mod-developers");
+        openWebpage("https://github.com/PizzaCrust/OpenByte");
     }
 
     private void initComponents() {
@@ -53,6 +53,7 @@ public class WelcomeFrame extends JFrame {
 
         //======== this ========
         setTitle("Welcome to OpenByte");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(null);
 
