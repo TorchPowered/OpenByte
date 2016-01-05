@@ -5,6 +5,8 @@
 package net.openbyte.gui;
 
 import java.awt.*;
+import java.awt.event.*;
+import java.net.URL;
 import javax.swing.*;
 
 /**
@@ -16,6 +18,22 @@ public class WelcomeFrame extends JFrame {
     public WelcomeFrame() {
         initComponents();
         list1.setModel(listItems);
+    }
+
+    public void openWebpage(String urlString) {
+        try {
+            Desktop.getDesktop().browse(new URL(urlString).toURI());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void button2ActionPerformed(ActionEvent e) {
+        openWebpage("https://github.com/PizzaCrust/OpenByte");
+    }
+
+    private void button3ActionPerformed(ActionEvent e) {
+        openWebpage("http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-tools/2420242-craftbyte-mod-ide-the-ide-for-mod-developers");
     }
 
     private void initComponents() {
@@ -66,12 +84,23 @@ public class WelcomeFrame extends JFrame {
 
         //---- button2 ----
         button2.setText("Minecraft Forums");
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                button2ActionPerformed(e);
+            }
+        });
         contentPane.add(button2);
         button2.setBounds(500, 285, 151, button2.getPreferredSize().height);
 
         //---- button3 ----
         button3.setText("GitHub");
-        button3.setEnabled(false);
+        button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                button3ActionPerformed(e);
+            }
+        });
         contentPane.add(button3);
         button3.setBounds(500, 315, 150, button3.getPreferredSize().height);
 
