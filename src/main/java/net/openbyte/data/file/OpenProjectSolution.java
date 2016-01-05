@@ -12,6 +12,14 @@ public class OpenProjectSolution {
 
     private OpenProjectSolution(File file){
         this.solution = new DataStore(file);
+        if(solution.get("version") == null){
+            solution.set("version", 1.0);
+            try {
+                solution.save();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         try {
             solution.loadDataStore();
         } catch (Exception e) {

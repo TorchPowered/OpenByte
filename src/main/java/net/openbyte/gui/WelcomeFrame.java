@@ -4,8 +4,14 @@
 
 package net.openbyte.gui;
 
+import net.openbyte.Launch;
+import net.openbyte.data.Files;
+import net.openbyte.data.file.OpenProjectSolution;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.net.URL;
 import javax.swing.*;
 
@@ -18,6 +24,20 @@ public class WelcomeFrame extends JFrame {
     public WelcomeFrame() {
         initComponents();
         list1.setModel(listItems);
+        File[] projectFiles = Files.WORKSPACE_DIRECTORY.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".openproj");
+            }
+        });
+        for (File projectFile : projectFiles){
+            OpenProjectSolution solution = OpenProjectSolution.getProjectSolutionFromFile(projectFile);
+            Launch.nameToSolution.put(solution.getProjectName(), solution);
+            Launch.projectNames.add(solution.getProjectName());
+        }
+        for (String projectName : Launch.projectNames){
+            WelcomeFrame.listItems.addElement(projectName);
+        }
     }
 
     public void openWebpage(String urlString) {
@@ -34,6 +54,12 @@ public class WelcomeFrame extends JFrame {
 
     private void button3ActionPerformed(ActionEvent e) {
         openWebpage("https://github.com/PizzaCrust/OpenByte");
+    }
+
+    private void button4ActionPerformed(ActionEvent e) {
+        setVisible(false);
+        CreateProjectFrame createProjectFrame = new CreateProjectFrame(this);
+        createProjectFrame.setVisible(true);
     }
 
     private void initComponents() {
@@ -54,6 +80,7 @@ public class WelcomeFrame extends JFrame {
         //======== this ========
         setTitle("Welcome to OpenByte");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         Container contentPane = getContentPane();
         contentPane.setLayout(null);
 
@@ -112,6 +139,12 @@ public class WelcomeFrame extends JFrame {
 
         //---- button4 ----
         button4.setText("+");
+        button4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                button4ActionPerformed(e);
+            }
+        });
         contentPane.add(button4);
         button4.setBounds(15, 355, 45, button4.getPreferredSize().height);
 
