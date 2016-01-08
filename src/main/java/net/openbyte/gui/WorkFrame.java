@@ -13,6 +13,7 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import net.openbyte.model.FileTreeModel;
@@ -26,6 +27,7 @@ import org.gradle.tooling.GradleConnector;
 public class WorkFrame extends JFrame {
     private File workDirectory;
     private File selectedFile;
+    private File selectedDirectory;
 
     public WorkFrame(File workDirectory) {
         this.workDirectory = workDirectory;
@@ -83,6 +85,9 @@ public class WorkFrame extends JFrame {
 
     private void tree1ValueChanged(TreeSelectionEvent e) {
         File node = (File) tree1.getLastSelectedPathComponent();
+        if(node.isDirectory()){
+            selectedDirectory = node;
+        }
         if(node == null || node.isDirectory()){
             return;
         }
@@ -113,13 +118,34 @@ public class WorkFrame extends JFrame {
         rSyntaxTextArea1.setText(builder.toString());
     }
 
+    private void menuItem6ActionPerformed(ActionEvent e) {
+        File src = new File(workDirectory, "src");
+        File main = new File(src, "main");
+        File java = new File(main, "java");
+        PackageCreationFrame packageCreationFrame = new PackageCreationFrame(tree1, java);
+        packageCreationFrame.setVisible(true);
+    }
+
+    private void menuItem7ActionPerformed(ActionEvent e) {
+        if(selectedDirectory == null){
+            JOptionPane.showMessageDialog(this, "You cannot delete a file that you have not selected.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        selectedDirectory.delete();
+        tree1.updateUI();
+        selectedDirectory = null;
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
         menuBar1 = new JMenuBar();
         menu2 = new JMenu();
+        menuItem6 = new JMenuItem();
         menuItem4 = new JMenuItem();
         menuItem5 = new JMenuItem();
+        menu3 = new JMenu();
+        menuItem7 = new JMenuItem();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
         menuItem2 = new JMenuItem();
@@ -148,6 +174,16 @@ public class WorkFrame extends JFrame {
             {
                 menu2.setText("File");
 
+                //---- menuItem6 ----
+                menuItem6.setText("Add Package");
+                menuItem6.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem6ActionPerformed(e);
+                    }
+                });
+                menu2.add(menuItem6);
+
                 //---- menuItem4 ----
                 menuItem4.setText("Save");
                 menuItem4.addActionListener(new ActionListener() {
@@ -169,6 +205,22 @@ public class WorkFrame extends JFrame {
                 menu2.add(menuItem5);
             }
             menuBar1.add(menu2);
+
+            //======== menu3 ========
+            {
+                menu3.setText("Edit");
+
+                //---- menuItem7 ----
+                menuItem7.setText("Delete");
+                menuItem7.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem7ActionPerformed(e);
+                    }
+                });
+                menu3.add(menuItem7);
+            }
+            menuBar1.add(menu3);
 
             //======== menu1 ========
             {
@@ -280,8 +332,11 @@ public class WorkFrame extends JFrame {
     // Generated using JFormDesigner Evaluation license - Gary Lee
     private JMenuBar menuBar1;
     private JMenu menu2;
+    private JMenuItem menuItem6;
     private JMenuItem menuItem4;
     private JMenuItem menuItem5;
+    private JMenu menu3;
+    private JMenuItem menuItem7;
     private JMenu menu1;
     private JMenuItem menuItem1;
     private JMenuItem menuItem2;
