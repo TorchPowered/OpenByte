@@ -14,6 +14,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JList" ) {
 					name: "list1"
 					"selectionMode": 0
+					addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "list1ValueChanged", true ) )
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 15

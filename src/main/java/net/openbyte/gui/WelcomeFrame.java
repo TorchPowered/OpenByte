@@ -4,6 +4,7 @@
 
 package net.openbyte.gui;
 
+import javax.swing.event.*;
 import net.openbyte.Launch;
 import net.openbyte.data.Files;
 import net.openbyte.data.file.OpenProjectSolution;
@@ -38,6 +39,21 @@ public class WelcomeFrame extends JFrame {
         for (String projectName : Launch.projectNames){
             WelcomeFrame.listItems.addElement(projectName);
         }
+        list1.addMouseListener(new MouseAdapter() {
+
+            int lastSelectedIndex;
+
+            public void mouseClicked(MouseEvent e) {
+
+                int index = list1.locationToIndex(e.getPoint());
+
+                if (index != -1 && index == lastSelectedIndex) {
+                    list1.clearSelection();
+                }
+
+                lastSelectedIndex = list1.getSelectedIndex();
+            }
+        });
     }
 
     public void openWebpage(String urlString) {
@@ -60,6 +76,16 @@ public class WelcomeFrame extends JFrame {
         setVisible(false);
         CreateProjectFrame createProjectFrame = new CreateProjectFrame(this);
         createProjectFrame.setVisible(true);
+    }
+
+    private void list1ValueChanged(ListSelectionEvent e) {
+        if(list1.getSelectedIndex() == -1){
+            button5.setEnabled(false);
+            button1.setEnabled(false);
+            return;
+        }
+        button5.setEnabled(true);
+        button1.setEnabled(true);
     }
 
     private void initComponents() {
@@ -89,6 +115,12 @@ public class WelcomeFrame extends JFrame {
 
             //---- list1 ----
             list1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            list1.addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    list1ValueChanged(e);
+                }
+            });
             scrollPane1.setViewportView(list1);
         }
         contentPane.add(scrollPane1);
