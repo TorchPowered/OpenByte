@@ -32,26 +32,29 @@ public class OpenProjectSolution {
     }
 
     public void setProjectName(String name){
-        solution.set("projectName", name);
+        solution.set("name", name);
+    }
+
+    public String getProjectName(){
+        return solution.getString("name");
+    }
+
+    public File getProjectFolder(){
+        return (File) solution.get("folder");
+    }
+
+    public void setProjectFolder(File file){
+        solution.set("folder", file);
+    }
+
+    public void saveSolution(){
         try {
             solution.save();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public String getProjectName(){
-        return solution.getString("projectName");
-    }
-
-    public File getProjectFolder(){
-        return (File) solution.get("projectFolder");
-    }
-
-    public void setProjectFolder(File file){
-        solution.set("projectFolder", file);
         try {
-            solution.save();
+            solution.loadDataStore();
         } catch (Exception e) {
             e.printStackTrace();
         }
