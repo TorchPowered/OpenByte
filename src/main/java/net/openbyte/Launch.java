@@ -27,23 +27,6 @@ public class Launch {
             logger.info("Workspace directory not found, creating one.");
             Files.WORKSPACE_DIRECTORY.mkdir();
         }
-        logger.info("Searching for project files...");
-        File[] projectFiles = Files.WORKSPACE_DIRECTORY.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".openproj");
-            }
-        });
-        logger.info("Compiling project names of the project files...");
-        for (File projectFile : projectFiles){
-            OpenProjectSolution solution = OpenProjectSolution.getProjectSolutionFromFile(projectFile);
-            nameToSolution.put(solution.getProjectName(), solution);
-            projectNames.add(solution.getProjectName());
-        }
-        logger.info("Placing project names inside of recent projects...");
-        for (String projectName : projectNames){
-            WelcomeFrame.listItems.addElement(projectName);
-        }
 		try{
 			logger.info("Grabbing and applying system look and feel...");
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

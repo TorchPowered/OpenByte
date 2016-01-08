@@ -77,7 +77,6 @@ public class CreateProjectFrame extends JFrame {
         OpenProjectSolution solution = OpenProjectSolution.getProjectSolutionFromFile(solutionFile);
         solution.setProjectFolder(this.projectFolder);
         solution.setProjectName(projectName);
-        solution.saveSolution();
     }
 
     private void cloneAPI(){

@@ -1,28 +1,45 @@
 package net.openbyte.data.file;
 
-import net.openbyte.data.DataStore;
-
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * Represents a project solution file.
  */
 public class OpenProjectSolution {
-    private DataStore solution;
+    private Properties solution;
+    private File saveToFile;
 
     private OpenProjectSolution(File file){
-        this.solution = new DataStore(file);
+        this.solution = new Properties();
+        try {
+            solution.load(new FileInputStream(file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if(solution.get("version") == null){
-            solution.set("version", 1.0);
+            solution.setProperty("version", "1.0");
             try {
-                solution.save();
+                solution.store(new FileOutputStream(file), null);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         try {
-            solution.loadDataStore();
+            solution.load(new FileInputStream(file));
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        saveToFile = file;
+    }
+
+    private void save(){
+        try {
+            solution.store(new FileOutputStream(saveToFile), null);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -32,31 +49,19 @@ public class OpenProjectSolution {
     }
 
     public void setProjectName(String name){
-        solution.set("name", name);
+        solution.setProperty("name", name);
+        save();
     }
 
     public String getProjectName(){
-        return solution.getString("name");
+        return solution.getProperty("name");
     }
 
     public File getProjectFolder(){
-        return (File) solution.get("folder");
+        return new File(solution.getProperty("folderPath"));
     }
 
     public void setProjectFolder(File file){
-        solution.set("folder", file);
-    }
-
-    public void saveSolution(){
-        try {
-            solution.save();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            solution.loadDataStore();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        solution.setProperty("folderPath", file.getAbsolutePath());
     }
 }
