@@ -30,6 +30,13 @@ public class WorkFrame extends JFrame {
         textArea1.append("" + logOutput);
     }
 
+    private void menuItem2ActionPerformed(ActionEvent e) {
+        textArea1.setText("");
+        ByteArrayOutputStream logOutput = new ByteArrayOutputStream();
+        GradleConnector.newConnector().forProjectDirectory(workDirectory).connect().newBuild().forTasks("runServer").setStandardOutput(logOutput).setStandardError(logOutput).run();
+        textArea1.append("" + logOutput);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
@@ -74,6 +81,12 @@ public class WorkFrame extends JFrame {
 
                 //---- menuItem2 ----
                 menuItem2.setText("Run Server");
+                menuItem2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem2ActionPerformed(e);
+                    }
+                });
                 menu1.add(menuItem2);
 
                 //---- menuItem3 ----
