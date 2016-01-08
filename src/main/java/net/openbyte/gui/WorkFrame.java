@@ -37,6 +37,13 @@ public class WorkFrame extends JFrame {
         textArea1.append("" + logOutput);
     }
 
+    private void menuItem3ActionPerformed(ActionEvent e) {
+        textArea1.setText("");
+        ByteArrayOutputStream logOutput = new ByteArrayOutputStream();
+        GradleConnector.newConnector().forProjectDirectory(workDirectory).connect().newBuild().forTasks("build").setStandardOutput(logOutput).setStandardError(logOutput).run();
+        textArea1.append("" + logOutput);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
@@ -91,6 +98,12 @@ public class WorkFrame extends JFrame {
 
                 //---- menuItem3 ----
                 menuItem3.setText("Build Mod JAR");
+                menuItem3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem3ActionPerformed(e);
+                    }
+                });
                 menu1.add(menuItem3);
             }
             menuBar1.add(menu1);
