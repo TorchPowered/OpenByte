@@ -4,6 +4,9 @@
 
 package net.openbyte.gui;
 
+import net.openbyte.FileUtil;
+import net.openbyte.Formats;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -61,6 +64,7 @@ public class ClassCreationFrame extends JFrame {
             }
             setVisible(false);
             tree.updateUI();
+            FileUtil.format(Formats.classFormat(splittedName[0] + "." + splittedName[1] + "." + splittedName[2], splittedName[3]), theClass);
             return;
         }
         if(splittedName.length == 3){
@@ -82,6 +86,7 @@ public class ClassCreationFrame extends JFrame {
             }
             setVisible(false);
             tree.updateUI();
+            FileUtil.format(Formats.classFormat(splittedName[0] + "." + splittedName[1], splittedName[2]), theClass);
             return;
         }
         File mainPackageDir = new File(src, splittedName[0]);
@@ -98,6 +103,7 @@ public class ClassCreationFrame extends JFrame {
         }
         setVisible(false);
         tree.updateUI();
+        FileUtil.format(Formats.classFormat(splittedName[0], splittedName[1]), theClass);
         return;
     }
 
