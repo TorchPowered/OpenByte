@@ -53,7 +53,7 @@ public class CreateProjectFrame extends JFrame {
         this.version = minecraftVersion;
         this.api = modificationAPI;
         setVisible(false);
-        JOptionPane.showMessageDialog(this, "We're working on setuping the project, when we are ready; a window will show up.", "Working on project creation", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "We're working on setting up the project. When we are ready, a window will show up.", "Working on project creation", JOptionPane.INFORMATION_MESSAGE);
         this.projectName = textField1.getText();
         doOperations();
     }

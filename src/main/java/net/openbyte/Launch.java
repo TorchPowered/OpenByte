@@ -43,6 +43,14 @@ public class Launch {
         for (String projectName : projectNames){
             WelcomeFrame.listItems.addElement(projectName);
         }
+		try{
+			logger.info("Grabbing and applying system look and feel...");
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e){
+			logger.info("Something went wrong when applying the look and feel, using the default one...");
+			e.printStackTrace();
+		}
         logger.info("Showing graphical interface to user...");
         WelcomeFrame welcomeFrame = new WelcomeFrame();
         welcomeFrame.setVisible(true);
