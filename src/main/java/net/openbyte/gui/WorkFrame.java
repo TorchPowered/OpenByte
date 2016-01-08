@@ -24,6 +24,7 @@ public class WorkFrame extends JFrame {
     }
 
     private void menuItem1ActionPerformed(ActionEvent e) {
+        textArea1.setText("");
         ByteArrayOutputStream logOutput = new ByteArrayOutputStream();
         GradleConnector.newConnector().forProjectDirectory(workDirectory).connect().newBuild().forTasks("runClient").setStandardOutput(logOutput).setStandardError(logOutput).run();
         textArea1.append("" + logOutput);
@@ -50,6 +51,7 @@ public class WorkFrame extends JFrame {
         //======== this ========
         setTitle("Project Workspace");
         setResizable(false);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(null);
 
@@ -91,6 +93,9 @@ public class WorkFrame extends JFrame {
 
         //======== scrollPane2 ========
         {
+
+            //---- textArea1 ----
+            textArea1.setEditable(false);
             scrollPane2.setViewportView(textArea1);
         }
         contentPane.add(scrollPane2);

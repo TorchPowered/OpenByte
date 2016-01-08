@@ -8,6 +8,7 @@ new FormModel {
 			"title": "Project Workspace"
 			"$sizePolicy": 1
 			"resizable": false
+			"defaultCloseOperation": 3
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane1"
 				add( new FormComponent( "javax.swing.JList" ) {
@@ -23,6 +24,7 @@ new FormModel {
 				name: "scrollPane2"
 				add( new FormComponent( "javax.swing.JTextArea" ) {
 					name: "textArea1"
+					"editable": false
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 165
