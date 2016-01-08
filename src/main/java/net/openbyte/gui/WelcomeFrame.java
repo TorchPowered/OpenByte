@@ -88,6 +88,15 @@ public class WelcomeFrame extends JFrame {
         button1.setEnabled(true);
     }
 
+    private void button5ActionPerformed(ActionEvent e) {
+        String selectedText = (String) list1.getSelectedValue();
+        listItems.remove(list1.getSelectedIndex());
+        OpenProjectSolution solution = Launch.nameToSolution.get(selectedText);
+        solution.getProjectFolder().delete();
+        list1.clearSelection();
+        solution.deleteSolution();
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
@@ -183,6 +192,12 @@ public class WelcomeFrame extends JFrame {
         //---- button5 ----
         button5.setText("-");
         button5.setEnabled(false);
+        button5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                button5ActionPerformed(e);
+            }
+        });
         contentPane.add(button5);
         button5.setBounds(60, 355, 40, button5.getPreferredSize().height);
 

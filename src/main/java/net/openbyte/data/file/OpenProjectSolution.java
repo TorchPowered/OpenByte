@@ -1,9 +1,12 @@
 package net.openbyte.data.file;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 /**
@@ -46,6 +49,10 @@ public class OpenProjectSolution {
 
     public static OpenProjectSolution getProjectSolutionFromFile(File file){
         return new OpenProjectSolution(file);
+    }
+
+    public void deleteSolution(){
+        JOptionPane.showMessageDialog(null, "Delete the solution file manually at this location: " + saveToFile.getAbsolutePath() + " after you have closed the application.", "Delete the solution", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void setProjectName(String name){

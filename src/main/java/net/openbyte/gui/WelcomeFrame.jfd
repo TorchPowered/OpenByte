@@ -83,6 +83,7 @@ new FormModel {
 				name: "button5"
 				"text": "-"
 				"enabled": false
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button5ActionPerformed", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 60
 				"y": 355
