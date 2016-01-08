@@ -6,9 +6,16 @@ package net.openbyte.gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.io.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Vector;
 import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeSelectionModel;
+
+import net.openbyte.model.FileTreeModel;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.*;
 import org.gradle.tooling.GradleConnector;
@@ -18,9 +25,14 @@ import org.gradle.tooling.GradleConnector;
  */
 public class WorkFrame extends JFrame {
     private File workDirectory;
+    private File selectedFile;
 
     public WorkFrame(File workDirectory) {
-        this.workDirectory = workDirectory; initComponents();
+        this.workDirectory = workDirectory;
+        initComponents();
+        KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
+        menuItem4.setAccelerator(keyStroke);
+        tree1.setModel(new FileTreeModel(this.workDirectory));
     }
 
     private void menuItem1ActionPerformed(ActionEvent e) {
@@ -44,16 +56,74 @@ public class WorkFrame extends JFrame {
         textArea1.append("" + logOutput);
     }
 
+    private void createUIComponents() {
+        // TODO: add custom component creation code here
+    }
+
+    private void menuItem4ActionPerformed(ActionEvent e) {
+        if(selectedFile == null){
+            JOptionPane.showMessageDialog(this, "You cannot save right now, because you have not selected a file inside the code editor.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        byte[] textBytes = rSyntaxTextArea1.getText().getBytes();
+        try {
+            FileOutputStream stream = new FileOutputStream(selectedFile);
+            stream.write(textBytes);
+            stream.close();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    private void menuItem5ActionPerformed(ActionEvent e) {
+        setVisible(false);
+        WelcomeFrame welcomeFrame = new WelcomeFrame();
+        welcomeFrame.setVisible(true);
+    }
+
+    private void tree1ValueChanged(TreeSelectionEvent e) {
+        File node = (File) tree1.getLastSelectedPathComponent();
+        if(node == null || node.isDirectory()){
+            return;
+        }
+        selectedFile = node;
+        BufferedReader br = null;
+        StringBuilder builder = new StringBuilder();
+
+        try {
+
+            String sCurrentLine;
+
+            br = new BufferedReader(new FileReader(node));
+
+            while ((sCurrentLine = br.readLine()) != null) {
+                builder.append(sCurrentLine + "\n");
+            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (br != null)br.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        rSyntaxTextArea1.setText(builder.toString());
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
         menuBar1 = new JMenuBar();
+        menu2 = new JMenu();
+        menuItem4 = new JMenuItem();
+        menuItem5 = new JMenuItem();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
-        scrollPane1 = new JScrollPane();
-        list1 = new JList();
         scrollPane2 = new JScrollPane();
         textArea1 = new JTextArea();
         label1 = new JLabel();
@@ -61,6 +131,8 @@ public class WorkFrame extends JFrame {
         rTextScrollPane1 = new RTextScrollPane();
         rSyntaxTextArea1 = new RSyntaxTextArea();
         label3 = new JLabel();
+        scrollPane3 = new JScrollPane();
+        tree1 = new JTree();
 
         //======== this ========
         setTitle("Project Workspace");
@@ -71,6 +143,32 @@ public class WorkFrame extends JFrame {
 
         //======== menuBar1 ========
         {
+
+            //======== menu2 ========
+            {
+                menu2.setText("File");
+
+                //---- menuItem4 ----
+                menuItem4.setText("Save");
+                menuItem4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem4ActionPerformed(e);
+                    }
+                });
+                menu2.add(menuItem4);
+
+                //---- menuItem5 ----
+                menuItem5.setText("Close Project");
+                menuItem5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem5ActionPerformed(e);
+                    }
+                });
+                menu2.add(menuItem5);
+            }
+            menuBar1.add(menu2);
 
             //======== menu1 ========
             {
@@ -110,13 +208,6 @@ public class WorkFrame extends JFrame {
         }
         setJMenuBar(menuBar1);
 
-        //======== scrollPane1 ========
-        {
-            scrollPane1.setViewportView(list1);
-        }
-        contentPane.add(scrollPane1);
-        scrollPane1.setBounds(0, 20, 160, 585);
-
         //======== scrollPane2 ========
         {
 
@@ -125,12 +216,12 @@ public class WorkFrame extends JFrame {
             scrollPane2.setViewportView(textArea1);
         }
         contentPane.add(scrollPane2);
-        scrollPane2.setBounds(165, 520, 745, 80);
+        scrollPane2.setBounds(175, 520, 735, 80);
 
         //---- label1 ----
         label1.setText("Output");
         contentPane.add(label1);
-        label1.setBounds(new Rectangle(new Point(165, 500), label1.getPreferredSize()));
+        label1.setBounds(new Rectangle(new Point(175, 500), label1.getPreferredSize()));
 
         //---- label2 ----
         label2.setText("File Manager");
@@ -145,12 +236,27 @@ public class WorkFrame extends JFrame {
             rTextScrollPane1.setViewportView(rSyntaxTextArea1);
         }
         contentPane.add(rTextScrollPane1);
-        rTextScrollPane1.setBounds(165, 20, 745, 470);
+        rTextScrollPane1.setBounds(175, 20, 735, 470);
 
         //---- label3 ----
         label3.setText("Code Editor");
         contentPane.add(label3);
-        label3.setBounds(new Rectangle(new Point(165, 5), label3.getPreferredSize()));
+        label3.setBounds(new Rectangle(new Point(175, 5), label3.getPreferredSize()));
+
+        //======== scrollPane3 ========
+        {
+
+            //---- tree1 ----
+            tree1.addTreeSelectionListener(new TreeSelectionListener() {
+                @Override
+                public void valueChanged(TreeSelectionEvent e) {
+                    tree1ValueChanged(e);
+                }
+            });
+            scrollPane3.setViewportView(tree1);
+        }
+        contentPane.add(scrollPane3);
+        scrollPane3.setBounds(5, 20, 165, 580);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -173,12 +279,13 @@ public class WorkFrame extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Gary Lee
     private JMenuBar menuBar1;
+    private JMenu menu2;
+    private JMenuItem menuItem4;
+    private JMenuItem menuItem5;
     private JMenu menu1;
     private JMenuItem menuItem1;
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
-    private JScrollPane scrollPane1;
-    private JList list1;
     private JScrollPane scrollPane2;
     private JTextArea textArea1;
     private JLabel label1;
@@ -186,5 +293,7 @@ public class WorkFrame extends JFrame {
     private RTextScrollPane rTextScrollPane1;
     private RSyntaxTextArea rSyntaxTextArea1;
     private JLabel label3;
+    private JScrollPane scrollPane3;
+    private JTree tree1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
