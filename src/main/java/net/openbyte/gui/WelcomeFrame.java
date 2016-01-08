@@ -97,6 +97,12 @@ public class WelcomeFrame extends JFrame {
         solution.deleteSolution();
     }
 
+    private void button1ActionPerformed(ActionEvent e) {
+        setVisible(false);
+        WorkFrame workFrame = new WorkFrame();
+        workFrame.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
@@ -143,6 +149,12 @@ public class WelcomeFrame extends JFrame {
         //---- button1 ----
         button1.setText("Open Project");
         button1.setEnabled(false);
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                button1ActionPerformed(e);
+            }
+        });
         contentPane.add(button1);
         button1.setBounds(105, 355, 110, button1.getPreferredSize().height);
 
