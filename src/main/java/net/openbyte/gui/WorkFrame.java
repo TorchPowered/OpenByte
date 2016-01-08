@@ -127,6 +127,10 @@ public class WorkFrame extends JFrame {
     }
 
     private void menuItem7ActionPerformed(ActionEvent e) {
+        if(!(selectedFile == null)){
+            selectedFile.delete();
+            return;
+        }
         if(selectedDirectory == null){
             JOptionPane.showMessageDialog(this, "You cannot delete a file that you have not selected.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -136,11 +140,20 @@ public class WorkFrame extends JFrame {
         selectedDirectory = null;
     }
 
+    private void menuItem8ActionPerformed(ActionEvent e) {
+        File src = new File(workDirectory, "src");
+        File main = new File(src, "main");
+        File java = new File(main, "java");
+        ClassCreationFrame classCreationFrame = new ClassCreationFrame(tree1, java);
+        classCreationFrame.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
         menuBar1 = new JMenuBar();
         menu2 = new JMenu();
+        menuItem8 = new JMenuItem();
         menuItem6 = new JMenuItem();
         menuItem4 = new JMenuItem();
         menuItem5 = new JMenuItem();
@@ -173,6 +186,16 @@ public class WorkFrame extends JFrame {
             //======== menu2 ========
             {
                 menu2.setText("File");
+
+                //---- menuItem8 ----
+                menuItem8.setText("Add Class");
+                menuItem8.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem8ActionPerformed(e);
+                    }
+                });
+                menu2.add(menuItem8);
 
                 //---- menuItem6 ----
                 menuItem6.setText("Add Package");
@@ -332,6 +355,7 @@ public class WorkFrame extends JFrame {
     // Generated using JFormDesigner Evaluation license - Gary Lee
     private JMenuBar menuBar1;
     private JMenu menu2;
+    private JMenuItem menuItem8;
     private JMenuItem menuItem6;
     private JMenuItem menuItem4;
     private JMenuItem menuItem5;
