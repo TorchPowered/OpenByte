@@ -135,7 +135,7 @@ public class WelcomeFrame extends JFrame {
         //---- label3 ----
         label3.setText("OpenByte v0.1 maintained by Swatcommader6.");
         contentPane.add(label3);
-        label3.setBounds(new Rectangle(new Point(385, 350), label3.getPreferredSize()));
+        label3.setBounds(new Rectangle(new Point(420, 350), label3.getPreferredSize()));
 
         //---- button4 ----
         button4.setText("+");
@@ -157,7 +157,7 @@ public class WelcomeFrame extends JFrame {
         //---- label4 ----
         label4.setText("Original idea was from TheVBGuyDaniel.");
         contentPane.add(label4);
-        label4.setBounds(425, 365, 265, label4.getPreferredSize().height);
+        label4.setBounds(460, 365, 265, label4.getPreferredSize().height);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();

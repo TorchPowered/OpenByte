@@ -128,7 +128,7 @@ public class CreateProjectFrame extends JFrame {
             }
         });
         contentPane.add(button1);
-        button1.setBounds(new Rectangle(new Point(330, 170), button1.getPreferredSize()));
+        button1.setBounds(new Rectangle(new Point(340, 170), button1.getPreferredSize()));
         contentPane.add(textField1);
         textField1.setBounds(10, 25, 245, textField1.getPreferredSize().height);
 

@@ -66,7 +66,7 @@ new FormModel {
 				name: "label3"
 				"text": "OpenByte v0.1 maintained by Swatcommader6."
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 385
+				"x": 420
 				"y": 350
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -91,7 +91,7 @@ new FormModel {
 				name: "label4"
 				"text": "Original idea was from TheVBGuyDaniel."
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 425
+				"x": 460
 				"y": 365
 				"width": 265
 			} )
