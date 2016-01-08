@@ -99,7 +99,9 @@ public class WelcomeFrame extends JFrame {
 
     private void button1ActionPerformed(ActionEvent e) {
         setVisible(false);
-        WorkFrame workFrame = new WorkFrame();
+        String selectedText = (String) list1.getSelectedValue();
+        OpenProjectSolution solution = Launch.nameToSolution.get(selectedText);
+        WorkFrame workFrame = new WorkFrame(solution.getProjectFolder());
         workFrame.setVisible(true);
     }
 

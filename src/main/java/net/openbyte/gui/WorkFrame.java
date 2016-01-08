@@ -5,16 +5,28 @@
 package net.openbyte.gui;
 
 import java.awt.*;
+import java.awt.event.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import javax.swing.*;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.*;
+import org.gradle.tooling.GradleConnector;
 
 /**
  * @author Gary Lee
  */
 public class WorkFrame extends JFrame {
-    public WorkFrame() {
-        initComponents();
+    private File workDirectory;
+
+    public WorkFrame(File workDirectory) {
+        this.workDirectory = workDirectory; initComponents();
+    }
+
+    private void menuItem1ActionPerformed(ActionEvent e) {
+        ByteArrayOutputStream logOutput = new ByteArrayOutputStream();
+        GradleConnector.newConnector().forProjectDirectory(workDirectory).connect().newBuild().forTasks("runClient").setStandardOutput(logOutput).setStandardError(logOutput).run();
+        textArea1.append("" + logOutput);
     }
 
     private void initComponents() {
@@ -50,6 +62,12 @@ public class WorkFrame extends JFrame {
 
                 //---- menuItem1 ----
                 menuItem1.setText("Run Client");
+                menuItem1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem1ActionPerformed(e);
+                    }
+                });
                 menu1.add(menuItem1);
 
                 //---- menuItem2 ----
