@@ -98,6 +98,18 @@ new FormModel {
 				"y": 365
 				"width": 265
 			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane2"
+				"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				add( new FormComponent( "org.jdesktop.swingx.JXImagePanel" ) {
+					name: "xImagePanel1"
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 210
+				"y": 25
+				"height": 160
+				"width": 445
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 10, 0 )
 			"size": new java.awt.Dimension( 675, 425 )

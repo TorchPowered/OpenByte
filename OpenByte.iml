@@ -23,5 +23,8 @@
     <orderEntry type="library" name="Gradle: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.4" level="project" />
     <orderEntry type="library" name="Gradle: com.fifesoft:rsyntaxtextarea:2.5.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.swinglabs:swingx:1.6.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.jhlabs:filters:2.0.235" level="project" />
+    <orderEntry type="library" name="Gradle: org.swinglabs:swing-worker:1.1" level="project" />
   </component>
 </module>

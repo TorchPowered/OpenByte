@@ -4,6 +4,7 @@
 
 package net.openbyte.gui;
 
+import javax.imageio.ImageIO;
 import javax.swing.event.*;
 import net.openbyte.Launch;
 import net.openbyte.data.Files;
@@ -13,8 +14,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.net.URL;
 import javax.swing.*;
+import org.jdesktop.swingx.*;
 
 /**
  * @author Gary Lee
@@ -25,6 +28,11 @@ public class WelcomeFrame extends JFrame {
     public WelcomeFrame() {
         initComponents();
         list1.setModel(listItems);
+        try {
+            xImagePanel1.setImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("openbytelogo.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         File[] projectFiles = Files.WORKSPACE_DIRECTORY.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -119,6 +127,8 @@ public class WelcomeFrame extends JFrame {
         button4 = new JButton();
         button5 = new JButton();
         label4 = new JLabel();
+        scrollPane2 = new JScrollPane();
+        xImagePanel1 = new JXImagePanel();
 
         //======== this ========
         setTitle("Welcome to OpenByte");
@@ -220,6 +230,14 @@ public class WelcomeFrame extends JFrame {
         contentPane.add(label4);
         label4.setBounds(460, 365, 265, label4.getPreferredSize().height);
 
+        //======== scrollPane2 ========
+        {
+            scrollPane2.setBorder(null);
+            scrollPane2.setViewportView(xImagePanel1);
+        }
+        contentPane.add(scrollPane2);
+        scrollPane2.setBounds(210, 25, 445, 160);
+
         { // compute preferred size
             Dimension preferredSize = new Dimension();
             for(int i = 0; i < contentPane.getComponentCount(); i++) {
@@ -251,5 +269,7 @@ public class WelcomeFrame extends JFrame {
     private JButton button4;
     private JButton button5;
     private JLabel label4;
+    private JScrollPane scrollPane2;
+    private JXImagePanel xImagePanel1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
