@@ -20,23 +20,23 @@ new FormModel {
 					"editable": false
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 175
+				"x": 355
 				"y": 520
-				"width": 735
+				"width": 760
 				"height": 80
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
 				"text": "Output"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 175
+				"x": 355
 				"y": 500
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label2"
 				"text": "File Manager"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 45
+				"x": 5
 				"y": 5
 			} )
 			add( new FormContainer( "org.fife.ui.rtextarea.RTextScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -46,16 +46,16 @@ new FormModel {
 					"syntaxEditingStyle": "text/java"
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 175
+				"x": 355
 				"y": 20
-				"width": 735
+				"width": 760
 				"height": 470
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label3"
 				"text": "Code Editor"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 175
+				"x": 355
 				"y": 5
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -67,7 +67,7 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 5
 				"y": 20
-				"width": 165
+				"width": 340
 				"height": 580
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
@@ -127,7 +127,7 @@ new FormModel {
 			}
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 935, 665 )
+			"size": new java.awt.Dimension( 1140, 665 )
 		} )
 	}
 }

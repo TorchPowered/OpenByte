@@ -296,17 +296,17 @@ public class WorkFrame extends JFrame {
             scrollPane2.setViewportView(textArea1);
         }
         contentPane.add(scrollPane2);
-        scrollPane2.setBounds(175, 520, 735, 80);
+        scrollPane2.setBounds(355, 520, 760, 80);
 
         //---- label1 ----
         label1.setText("Output");
         contentPane.add(label1);
-        label1.setBounds(new Rectangle(new Point(175, 500), label1.getPreferredSize()));
+        label1.setBounds(new Rectangle(new Point(355, 500), label1.getPreferredSize()));
 
         //---- label2 ----
         label2.setText("File Manager");
         contentPane.add(label2);
-        label2.setBounds(new Rectangle(new Point(45, 5), label2.getPreferredSize()));
+        label2.setBounds(new Rectangle(new Point(5, 5), label2.getPreferredSize()));
 
         //======== rTextScrollPane1 ========
         {
@@ -316,12 +316,12 @@ public class WorkFrame extends JFrame {
             rTextScrollPane1.setViewportView(rSyntaxTextArea1);
         }
         contentPane.add(rTextScrollPane1);
-        rTextScrollPane1.setBounds(175, 20, 735, 470);
+        rTextScrollPane1.setBounds(355, 20, 760, 470);
 
         //---- label3 ----
         label3.setText("Code Editor");
         contentPane.add(label3);
-        label3.setBounds(new Rectangle(new Point(175, 5), label3.getPreferredSize()));
+        label3.setBounds(new Rectangle(new Point(355, 5), label3.getPreferredSize()));
 
         //======== scrollPane3 ========
         {
@@ -336,7 +336,7 @@ public class WorkFrame extends JFrame {
             scrollPane3.setViewportView(tree1);
         }
         contentPane.add(scrollPane3);
-        scrollPane3.setBounds(5, 20, 165, 580);
+        scrollPane3.setBounds(5, 20, 340, 580);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -351,7 +351,7 @@ public class WorkFrame extends JFrame {
             contentPane.setMinimumSize(preferredSize);
             contentPane.setPreferredSize(preferredSize);
         }
-        setSize(935, 665);
+        setSize(1140, 665);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
