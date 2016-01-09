@@ -7,19 +7,11 @@ package net.openbyte.gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Vector;
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
 
-import net.openbyte.model.FileTreeModel;
-import org.fife.rsta.ac.java.JarManager;
+import net.openbyte.model.FileSystemModel;
 import org.fife.rsta.ac.java.JavaLanguageSupport;
-import org.fife.rsta.ac.java.JavaParser;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.*;
 import org.gradle.tooling.GradleConnector;
@@ -37,7 +29,7 @@ public class WorkFrame extends JFrame {
         initComponents();
         KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
         menuItem4.setAccelerator(keyStroke);
-        tree1.setModel(new FileTreeModel(this.workDirectory));
+        tree1.setModel(new FileSystemModel(this.workDirectory));
         JavaLanguageSupport support = new JavaLanguageSupport();
         try {
             support.getJarManager().addCurrentJreClassFileSource();
