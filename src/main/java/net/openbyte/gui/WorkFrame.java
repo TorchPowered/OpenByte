@@ -17,6 +17,9 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import net.openbyte.model.FileTreeModel;
+import org.fife.rsta.ac.java.JarManager;
+import org.fife.rsta.ac.java.JavaLanguageSupport;
+import org.fife.rsta.ac.java.JavaParser;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.*;
 import org.gradle.tooling.GradleConnector;
@@ -35,6 +38,16 @@ public class WorkFrame extends JFrame {
         KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
         menuItem4.setAccelerator(keyStroke);
         tree1.setModel(new FileTreeModel(this.workDirectory));
+        JavaLanguageSupport support = new JavaLanguageSupport();
+        try {
+            support.getJarManager().addCurrentJreClassFileSource();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        support.setAutoActivationDelay(0);
+        support.setAutoCompleteEnabled(true);
+        support.setParameterAssistanceEnabled(true);
+        support.install(rSyntaxTextArea1);
     }
 
     private void menuItem1ActionPerformed(ActionEvent e) {

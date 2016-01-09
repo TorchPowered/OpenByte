@@ -26,5 +26,8 @@
     <orderEntry type="library" name="Gradle: org.swinglabs:swingx:1.6.1" level="project" />
     <orderEntry type="library" name="Gradle: com.jhlabs:filters:2.0.235" level="project" />
     <orderEntry type="library" name="Gradle: org.swinglabs:swing-worker:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.fifesoft:autocomplete:2.5.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.fifesoft:languagesupport:2.5.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.mozilla:rhino:1.7.6" level="project" />
   </component>
 </module>

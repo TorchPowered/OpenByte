@@ -34,4 +34,6 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.fifesoft:rsyntaxtextarea:2.5.8'
     compile 'org.swinglabs:swingx:1.6.1'
+    compile 'com.fifesoft:autocomplete:2.5.8'
+    compile 'com.fifesoft:languagesupport:2.5.8'
 }
