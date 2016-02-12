@@ -11,6 +11,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
+import net.openbyte.gui.logger.Consumer;
+import net.openbyte.gui.logger.StreamCapturer;
 import net.openbyte.model.FileSystemModel;
 import org.fife.rsta.ac.java.JavaLanguageSupport;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -20,7 +22,7 @@ import org.gradle.tooling.GradleConnector;
 /**
  * @author Gary Lee
  */
-public class WorkFrame extends JFrame {
+public class WorkFrame extends JFrame implements Consumer {
     private File workDirectory;
     private File selectedFile;
     private File selectedDirectory;
@@ -41,27 +43,43 @@ public class WorkFrame extends JFrame {
         support.setAutoCompleteEnabled(true);
         support.setParameterAssistanceEnabled(true);
         support.install(rSyntaxTextArea1);
+        PrintStream out = System.out;
+        System.setOut(new PrintStream(new StreamCapturer("OpenByte", this, out)));
     }
 
     private void menuItem1ActionPerformed(ActionEvent e) {
-        textArea1.setText("");
-        ByteArrayOutputStream logOutput = new ByteArrayOutputStream();
-        GradleConnector.newConnector().forProjectDirectory(workDirectory).connect().newBuild().forTasks("runClient").setStandardOutput(logOutput).setStandardError(logOutput).run();
-        textArea1.append("" + logOutput);
+        textArea1.setText("Starting client...");
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                GradleConnector.newConnector().forProjectDirectory(workDirectory).connect().newBuild().forTasks("runClient").run();
+                return null;
+            }
+        };
+        worker.execute();
     }
 
     private void menuItem2ActionPerformed(ActionEvent e) {
-        textArea1.setText("");
-        ByteArrayOutputStream logOutput = new ByteArrayOutputStream();
-        GradleConnector.newConnector().forProjectDirectory(workDirectory).connect().newBuild().forTasks("runServer").setStandardOutput(logOutput).setStandardError(logOutput).run();
-        textArea1.append("" + logOutput);
+        textArea1.setText("Starting server...");
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                GradleConnector.newConnector().forProjectDirectory(workDirectory).connect().newBuild().forTasks("runServer").run();
+                return null;
+            }
+        };
+        worker.execute();
     }
 
     private void menuItem3ActionPerformed(ActionEvent e) {
-        textArea1.setText("");
-        ByteArrayOutputStream logOutput = new ByteArrayOutputStream();
-        GradleConnector.newConnector().forProjectDirectory(workDirectory).connect().newBuild().forTasks("build").setStandardOutput(logOutput).setStandardError(logOutput).run();
-        textArea1.append("" + logOutput);
+        textArea1.setText("Building modification JAR...");
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                GradleConnector.newConnector().forProjectDirectory(workDirectory).connect().newBuild().forTasks("build").run();
+                return null;
+            }
+        };
     }
 
     private void createUIComponents() {
@@ -367,5 +385,10 @@ public class WorkFrame extends JFrame {
     private RSyntaxTextArea rSyntaxTextArea1;
     private JScrollPane scrollPane3;
     private JTree tree1;
+
+    @Override
+    public void appendText(String text) {
+        textArea1.append(text);
+    }
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
