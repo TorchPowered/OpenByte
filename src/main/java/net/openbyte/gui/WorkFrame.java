@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.border.*;
 import javax.swing.event.*;
 
 import net.openbyte.model.FileSystemModel;
@@ -170,11 +171,8 @@ public class WorkFrame extends JFrame {
         menuItem3 = new JMenuItem();
         scrollPane2 = new JScrollPane();
         textArea1 = new JTextArea();
-        label1 = new JLabel();
-        label2 = new JLabel();
         rTextScrollPane1 = new RTextScrollPane();
         rSyntaxTextArea1 = new RSyntaxTextArea();
-        label3 = new JLabel();
         scrollPane3 = new JScrollPane();
         tree1 = new JTree();
 
@@ -290,43 +288,36 @@ public class WorkFrame extends JFrame {
 
         //======== scrollPane2 ========
         {
+            scrollPane2.setBorder(null);
 
             //---- textArea1 ----
             textArea1.setEditable(false);
+            textArea1.setBorder(new TitledBorder(LineBorder.createGrayLineBorder(), "Output"));
+            textArea1.setBackground(new Color(240, 240, 240));
             scrollPane2.setViewportView(textArea1);
         }
         contentPane.add(scrollPane2);
-        scrollPane2.setBounds(355, 520, 760, 80);
-
-        //---- label1 ----
-        label1.setText("Output");
-        contentPane.add(label1);
-        label1.setBounds(new Rectangle(new Point(355, 500), label1.getPreferredSize()));
-
-        //---- label2 ----
-        label2.setText("File Manager");
-        contentPane.add(label2);
-        label2.setBounds(new Rectangle(new Point(5, 5), label2.getPreferredSize()));
+        scrollPane2.setBounds(355, 495, 760, 100);
 
         //======== rTextScrollPane1 ========
         {
+            rTextScrollPane1.setBorder(new TitledBorder(LineBorder.createGrayLineBorder(), "Code Editor"));
 
             //---- rSyntaxTextArea1 ----
             rSyntaxTextArea1.setSyntaxEditingStyle("text/java");
+            rSyntaxTextArea1.setBackground(Color.white);
             rTextScrollPane1.setViewportView(rSyntaxTextArea1);
         }
         contentPane.add(rTextScrollPane1);
-        rTextScrollPane1.setBounds(355, 20, 760, 470);
-
-        //---- label3 ----
-        label3.setText("Code Editor");
-        contentPane.add(label3);
-        label3.setBounds(new Rectangle(new Point(355, 5), label3.getPreferredSize()));
+        rTextScrollPane1.setBounds(355, 10, 760, 480);
 
         //======== scrollPane3 ========
         {
+            scrollPane3.setBorder(null);
 
             //---- tree1 ----
+            tree1.setBorder(new TitledBorder(LineBorder.createGrayLineBorder(), "File Manager"));
+            tree1.setBackground(new Color(240, 240, 240));
             tree1.addTreeSelectionListener(new TreeSelectionListener() {
                 @Override
                 public void valueChanged(TreeSelectionEvent e) {
@@ -336,7 +327,7 @@ public class WorkFrame extends JFrame {
             scrollPane3.setViewportView(tree1);
         }
         contentPane.add(scrollPane3);
-        scrollPane3.setBounds(5, 20, 340, 580);
+        scrollPane3.setBounds(5, 10, 340, 590);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -372,11 +363,8 @@ public class WorkFrame extends JFrame {
     private JMenuItem menuItem3;
     private JScrollPane scrollPane2;
     private JTextArea textArea1;
-    private JLabel label1;
-    private JLabel label2;
     private RTextScrollPane rTextScrollPane1;
     private RSyntaxTextArea rSyntaxTextArea1;
-    private JLabel label3;
     private JScrollPane scrollPane3;
     private JTree tree1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
