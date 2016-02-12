@@ -14,6 +14,8 @@ import javax.swing.event.*;
 import net.openbyte.gui.logger.Consumer;
 import net.openbyte.gui.logger.StreamCapturer;
 import net.openbyte.model.FileSystemModel;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.fife.rsta.ac.java.JavaLanguageSupport;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.*;
@@ -172,6 +174,33 @@ public class WorkFrame extends JFrame implements Consumer {
         classCreationFrame.setVisible(true);
     }
 
+    private void menuItem9ActionPerformed(ActionEvent e) {
+        menuItem9.setEnabled(false);
+        try {
+            Git.init().setDirectory(this.workDirectory).call();
+        } catch (GitAPIException e1) {
+            e1.printStackTrace();
+        }
+        menu5.setEnabled(true);
+    }
+
+    private void menuItem10ActionPerformed(ActionEvent e) {
+        try {
+            Git
+                    .open(this.workDirectory)
+                    .add()
+                    .addFilepattern(".")
+                    .call();
+            Git
+                    .open(this.workDirectory)
+                    .commit()
+                    .setMessage("Merge repository with local changes.")
+                    .call();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
@@ -187,6 +216,10 @@ public class WorkFrame extends JFrame implements Consumer {
         menuItem1 = new JMenuItem();
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
+        menu4 = new JMenu();
+        menuItem9 = new JMenuItem();
+        menu5 = new JMenu();
+        menuItem10 = new JMenuItem();
         scrollPane2 = new JScrollPane();
         textArea1 = new JTextArea();
         rTextScrollPane1 = new RTextScrollPane();
@@ -301,6 +334,40 @@ public class WorkFrame extends JFrame implements Consumer {
                 menu1.add(menuItem3);
             }
             menuBar1.add(menu1);
+
+            //======== menu4 ========
+            {
+                menu4.setText("Git");
+
+                //---- menuItem9 ----
+                menuItem9.setText("Import into Git");
+                menuItem9.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem9ActionPerformed(e);
+                        menuItem9ActionPerformed(e);
+                    }
+                });
+                menu4.add(menuItem9);
+
+                //======== menu5 ========
+                {
+                    menu5.setText("Options");
+                    menu5.setEnabled(false);
+
+                    //---- menuItem10 ----
+                    menuItem10.setText("Commit");
+                    menuItem10.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            menuItem10ActionPerformed(e);
+                        }
+                    });
+                    menu5.add(menuItem10);
+                }
+                menu4.add(menu5);
+            }
+            menuBar1.add(menu4);
         }
         setJMenuBar(menuBar1);
 
@@ -379,16 +446,20 @@ public class WorkFrame extends JFrame implements Consumer {
     private JMenuItem menuItem1;
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
+    private JMenu menu4;
+    private JMenuItem menuItem9;
+    private JMenu menu5;
+    private JMenuItem menuItem10;
     private JScrollPane scrollPane2;
     private JTextArea textArea1;
     private RTextScrollPane rTextScrollPane1;
     private RSyntaxTextArea rSyntaxTextArea1;
     private JScrollPane scrollPane3;
     private JTree tree1;
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     @Override
     public void appendText(String text) {
-        textArea1.append(text);
+
     }
-    // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

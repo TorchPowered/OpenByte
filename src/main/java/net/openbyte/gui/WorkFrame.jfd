@@ -111,6 +111,26 @@ new FormModel {
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem3ActionPerformed", true ) )
 					} )
 				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu4"
+					"text": "Git"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem9"
+						"text": "Import into Git"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem9ActionPerformed", true ) )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem9ActionPerformed", true ) )
+					} )
+					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+						name: "menu5"
+						"text": "Options"
+						"enabled": false
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "menuItem10"
+							"text": "Commit"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem10ActionPerformed", true ) )
+						} )
+					} )
+				} )
 			}
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
