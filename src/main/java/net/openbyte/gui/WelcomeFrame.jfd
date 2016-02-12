@@ -11,23 +11,18 @@ new FormModel {
 			"resizable": false
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane1"
+				"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( sfield java.awt.Color gray, 1, false ), "Recent Projects" )
 				add( new FormComponent( "javax.swing.JList" ) {
 					name: "list1"
 					"selectionMode": 0
+					"background": new java.awt.Color( 240, 240, 240, 255 )
 					addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "list1ValueChanged", true ) )
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 15
-				"y": 25
+				"y": 10
 				"width": 165
-				"height": 325
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label1"
-				"text": "Recent Projects"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 15
-				"y": 5
+				"height": 340
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button1"

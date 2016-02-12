@@ -5,6 +5,7 @@
 package net.openbyte.gui;
 
 import javax.imageio.ImageIO;
+import javax.swing.border.*;
 import javax.swing.event.*;
 import net.openbyte.Launch;
 import net.openbyte.data.Files;
@@ -118,7 +119,6 @@ public class WelcomeFrame extends JFrame {
         // Generated using JFormDesigner Evaluation license - Gary Lee
         scrollPane1 = new JScrollPane();
         list1 = new JList();
-        label1 = new JLabel();
         button1 = new JButton();
         label2 = new JLabel();
         button2 = new JButton();
@@ -139,9 +139,11 @@ public class WelcomeFrame extends JFrame {
 
         //======== scrollPane1 ========
         {
+            scrollPane1.setBorder(new TitledBorder(LineBorder.createGrayLineBorder(), "Recent Projects"));
 
             //---- list1 ----
             list1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            list1.setBackground(new Color(240, 240, 240));
             list1.addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
@@ -151,12 +153,7 @@ public class WelcomeFrame extends JFrame {
             scrollPane1.setViewportView(list1);
         }
         contentPane.add(scrollPane1);
-        scrollPane1.setBounds(15, 25, 165, 325);
-
-        //---- label1 ----
-        label1.setText("Recent Projects");
-        contentPane.add(label1);
-        label1.setBounds(new Rectangle(new Point(15, 5), label1.getPreferredSize()));
+        scrollPane1.setBounds(15, 10, 165, 340);
 
         //---- button1 ----
         button1.setText("Open Project");
@@ -260,7 +257,6 @@ public class WelcomeFrame extends JFrame {
     // Generated using JFormDesigner Evaluation license - Gary Lee
     private JScrollPane scrollPane1;
     private JList list1;
-    private JLabel label1;
     private JButton button1;
     private JLabel label2;
     private JButton button2;

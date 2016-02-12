@@ -64,6 +64,10 @@ public class ClassCreationFrame extends JFrame {
             }
             setVisible(false);
             tree.updateUI();
+            if(checkBox1.isSelected()) {
+                FileUtil.format(Formats.interfaceFormat(splittedName[0] + "." + splittedName[1] + "." + splittedName[2], splittedName[3]), theClass);
+                return;
+            }
             FileUtil.format(Formats.classFormat(splittedName[0] + "." + splittedName[1] + "." + splittedName[2], splittedName[3]), theClass);
             return;
         }
@@ -114,6 +118,7 @@ public class ClassCreationFrame extends JFrame {
         button1 = new JButton();
         button2 = new JButton();
         label1 = new JLabel();
+        checkBox1 = new JCheckBox();
 
         //======== this ========
         setTitle("Create class");
@@ -149,6 +154,11 @@ public class ClassCreationFrame extends JFrame {
         contentPane.add(label1);
         label1.setBounds(new Rectangle(new Point(140, 30), label1.getPreferredSize()));
 
+        //---- checkBox1 ----
+        checkBox1.setText("Interface");
+        contentPane.add(checkBox1);
+        checkBox1.setBounds(new Rectangle(new Point(425, 105), checkBox1.getPreferredSize()));
+
         { // compute preferred size
             Dimension preferredSize = new Dimension();
             for(int i = 0; i < contentPane.getComponentCount(); i++) {
@@ -173,5 +183,6 @@ public class ClassCreationFrame extends JFrame {
     private JButton button1;
     private JButton button2;
     private JLabel label1;
+    private JCheckBox checkBox1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
