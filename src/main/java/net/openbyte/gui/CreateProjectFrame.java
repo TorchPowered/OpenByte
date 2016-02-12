@@ -11,7 +11,6 @@ import net.openbyte.data.file.OpenProjectSolution;
 import net.openbyte.enums.MinecraftVersion;
 import net.openbyte.enums.ModificationAPI;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.gradle.tooling.GradleConnector;
 
 import java.awt.*;
@@ -29,6 +28,7 @@ public class CreateProjectFrame extends JFrame {
     private String projectName;
     private MinecraftVersion version;
     private ModificationAPI api;
+    private final ProgressMonitor monitor = new ProgressMonitor(this, "Setting up your project...", "Creating project directory...", 0, 100);;
 
     public CreateProjectFrame(JFrame previousFrame) {
         this.previousFrame = previousFrame;
@@ -53,19 +53,42 @@ public class CreateProjectFrame extends JFrame {
         this.version = minecraftVersion;
         this.api = modificationAPI;
         setVisible(false);
-        JOptionPane.showMessageDialog(this, "We're working on setting up the project. When we are ready, a window will show up.", "Working on project creation", JOptionPane.INFORMATION_MESSAGE);
+        //JOptionPane.showMessageDialog(this, "We're working on setting up the project. When we are ready, a window will show up.", "Working on project creation", JOptionPane.INFORMATION_MESSAGE);
         this.projectName = textField1.getText();
-        doOperations();
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                doOperations();
+                return null;
+            }
+        };
+        monitor.setMillisToPopup(0);
+        monitor.setMillisToDecideToPopup(0);
+        monitor.setProgress(1);
+        worker.execute();
+        if(monitor.isCanceled()) {
+            projectFolder.delete();
+            new File(Files.WORKSPACE_DIRECTORY, projectName + ".openproj").delete();
+            return;
+        }
     }
 
     public void doOperations(){
         createProjectFolder();
+        monitor.setProgress(20);
+        monitor.setNote("Creating solution for project...");
         createSolutionFile();
+        monitor.setProgress(60);
+        monitor.setNote("Cloning Minecraft Forge...");
         cloneAPI();
+        monitor.setProgress(90);
+        monitor.setNote("Decompiling Minecraft...");
         GradleConnector.newConnector().forProjectDirectory(projectFolder).connect().newBuild().setJvmArguments("-XX:-UseGCOverheadLimit").forTasks("setupDecompWorkspace").run();
+        monitor.close();
         WelcomeFrame welcomeFrame = new WelcomeFrame();
         welcomeFrame.setVisible(true);
     }
+
     private void createProjectFolder(){
         this.projectFolder = new File(Files.WORKSPACE_DIRECTORY, projectName);
         projectFolder.mkdir();
