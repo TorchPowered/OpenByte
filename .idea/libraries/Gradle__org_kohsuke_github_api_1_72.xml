@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.kohsuke:github-api:1.72">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kohsuke/github-api/1.72/d3176223918575d2499e6c7c9e4541c9788eebb2/github-api-1.72.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kohsuke/github-api/1.72/e6a37def0315a917a70683bc95835bd9eb4cca6a/github-api-1.72-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
