@@ -106,7 +106,8 @@ public class CreateProjectFrame extends JFrame {
         if(this.api == ModificationAPI.MINECRAFT_FORGE){
             String link;
             if(this.version == MinecraftVersion.BOUNTIFUL_UPDATE){
-                link = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.8.9-11.15.0.1684/forge-1.8.9-11.15.0.1684-mdk.zip";
+                // too old -> link = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.8.9-11.15.0.1684/forge-1.8.9-11.15.0.1684-mdk.zip";
+                link = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.8.9-11.15.1.1722/forge-1.8.9-11.15.1.1722-mdk.zip";
             } else {
                 link = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.7.10-10.13.4.1614-1.7.10/forge-1.7.10-10.13.4.1614-1.7.10-src.zip";
             }
