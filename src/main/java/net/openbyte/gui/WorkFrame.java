@@ -384,7 +384,7 @@ public class WorkFrame extends JFrame implements Consumer {
             scrollPane2.setViewportView(textArea1);
         }
         contentPane.add(scrollPane2);
-        scrollPane2.setBounds(355, 610, 760, 100);
+        scrollPane2.setBounds(355, 610, 850, 100);
 
         //======== rTextScrollPane1 ========
         {
@@ -396,7 +396,7 @@ public class WorkFrame extends JFrame implements Consumer {
             rTextScrollPane1.setViewportView(rSyntaxTextArea1);
         }
         contentPane.add(rTextScrollPane1);
-        rTextScrollPane1.setBounds(355, 10, 760, 590);
+        rTextScrollPane1.setBounds(355, 10, 850, 590);
 
         //======== scrollPane3 ========
         {

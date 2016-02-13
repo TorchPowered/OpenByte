@@ -25,7 +25,7 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 355
 				"y": 610
-				"width": 760
+				"width": 850
 				"height": 100
 			} )
 			add( new FormContainer( "org.fife.ui.rtextarea.RTextScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -39,7 +39,7 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 355
 				"y": 10
-				"width": 760
+				"width": 850
 				"height": 590
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
