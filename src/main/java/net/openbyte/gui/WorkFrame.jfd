@@ -24,7 +24,7 @@ new FormModel {
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 355
-				"y": 495
+				"y": 610
 				"width": 760
 				"height": 100
 			} )
@@ -40,7 +40,7 @@ new FormModel {
 				"x": 355
 				"y": 10
 				"width": 760
-				"height": 480
+				"height": 590
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane3"
@@ -55,7 +55,7 @@ new FormModel {
 				"x": 5
 				"y": 10
 				"width": 340
-				"height": 590
+				"height": 705
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar1"
@@ -133,8 +133,8 @@ new FormModel {
 				} )
 			}
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 1140, 665 )
+			"location": new java.awt.Point( 0, 5 )
+			"size": new java.awt.Dimension( 1230, 785 )
 		} )
 	}
 }
