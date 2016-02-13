@@ -187,7 +187,7 @@ public class WorkFrame extends JFrame {
     }
 
     private void menuItem10ActionPerformed(ActionEvent e) {
-        try {
+        /**try {
             Git
                     .open(this.workDirectory)
                     .add()
@@ -200,7 +200,9 @@ public class WorkFrame extends JFrame {
                     .call();
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
+        }**/
+        GitCommitFrame frame = new GitCommitFrame(this.workDirectory);
+        frame.setVisible(true);
     }
 
     private void menuItem11ActionPerformed(ActionEvent e) {
