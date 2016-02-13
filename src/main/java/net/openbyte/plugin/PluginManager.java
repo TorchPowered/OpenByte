@@ -1,6 +1,7 @@
 package net.openbyte.plugin;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -68,5 +69,20 @@ public class PluginManager {
     public static void disablePlugin(AbstractPlugin abstractPlugin) {
         abstractPlugin.disable();
         abstractPlugins.remove(abstractPlugin);
+    }
+
+    /**
+     * Retrieves all plugin files in a directory specified.
+     *
+     * @param directory the directory where the plugin files will be searched from
+     * @return the plugin files detected in the directory
+     */
+    public static File[] getPluginFiles(File directory) {
+        return directory.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".jar");
+            }
+        });
     }
 }

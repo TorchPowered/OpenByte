@@ -8,6 +8,7 @@ import java.io.IOException;
  */
 public class Files {
     public static final File WORKSPACE_DIRECTORY = new File(System.getProperty("user.home"), ".openbyte");
+    public static final File PLUGINS_DIRECTORY = new File(WORKSPACE_DIRECTORY, "plugins");
 
     /**
      * Creates a new file
