@@ -50,7 +50,7 @@ public class WorkFrame extends JFrame implements Consumer {
     }
 
     private void menuItem1ActionPerformed(ActionEvent e) {
-        textArea1.setText("Starting client...");
+        textArea1.setText("Starting client... \n");
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -62,7 +62,7 @@ public class WorkFrame extends JFrame implements Consumer {
     }
 
     private void menuItem2ActionPerformed(ActionEvent e) {
-        textArea1.setText("Starting server...");
+        textArea1.setText("Starting server... \n");
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -74,7 +74,7 @@ public class WorkFrame extends JFrame implements Consumer {
     }
 
     private void menuItem3ActionPerformed(ActionEvent e) {
-        textArea1.setText("Building modification JAR...");
+        textArea1.setText("Building modification JAR... \n");
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -382,7 +382,7 @@ public class WorkFrame extends JFrame implements Consumer {
             scrollPane2.setViewportView(textArea1);
         }
         contentPane.add(scrollPane2);
-        scrollPane2.setBounds(355, 495, 760, 100);
+        scrollPane2.setBounds(355, 610, 760, 100);
 
         //======== rTextScrollPane1 ========
         {
@@ -394,7 +394,7 @@ public class WorkFrame extends JFrame implements Consumer {
             rTextScrollPane1.setViewportView(rSyntaxTextArea1);
         }
         contentPane.add(rTextScrollPane1);
-        rTextScrollPane1.setBounds(355, 10, 760, 480);
+        rTextScrollPane1.setBounds(355, 10, 760, 590);
 
         //======== scrollPane3 ========
         {
@@ -412,7 +412,7 @@ public class WorkFrame extends JFrame implements Consumer {
             scrollPane3.setViewportView(tree1);
         }
         contentPane.add(scrollPane3);
-        scrollPane3.setBounds(5, 10, 340, 590);
+        scrollPane3.setBounds(5, 10, 340, 705);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -427,7 +427,7 @@ public class WorkFrame extends JFrame implements Consumer {
             contentPane.setMinimumSize(preferredSize);
             contentPane.setPreferredSize(preferredSize);
         }
-        setSize(1140, 665);
+        setSize(1230, 785);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
