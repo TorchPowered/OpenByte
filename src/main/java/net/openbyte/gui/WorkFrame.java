@@ -11,7 +11,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
-import net.openbyte.gui.logger.Consumer;
 import net.openbyte.gui.logger.StreamCapturer;
 import net.openbyte.model.FileSystemModel;
 import org.eclipse.jgit.api.Git;
@@ -20,11 +19,12 @@ import org.fife.rsta.ac.java.JavaLanguageSupport;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.*;
 import org.gradle.tooling.GradleConnector;
+import org.jdesktop.swingx.*;
 
 /**
  * @author Gary Lee
  */
-public class WorkFrame extends JFrame implements Consumer {
+public class WorkFrame extends JFrame {
     private File workDirectory;
     private File selectedFile;
     private File selectedDirectory;
@@ -45,12 +45,12 @@ public class WorkFrame extends JFrame implements Consumer {
         support.setAutoCompleteEnabled(true);
         support.setParameterAssistanceEnabled(true);
         support.install(rSyntaxTextArea1);
-        PrintStream out = System.out;
-        System.setOut(new PrintStream(new StreamCapturer("OpenByte", this, out)));
+        //PrintStream out = System.out;
+        //System.setOut(new PrintStream(new StreamCapturer("OpenByte", this, out)));
     }
 
     private void menuItem1ActionPerformed(ActionEvent e) {
-        textArea1.setText("Starting client... \n");
+        System.out.println("Starting client...");
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -62,7 +62,7 @@ public class WorkFrame extends JFrame implements Consumer {
     }
 
     private void menuItem2ActionPerformed(ActionEvent e) {
-        textArea1.setText("Starting server... \n");
+        System.out.println("Starting server...");
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -74,7 +74,7 @@ public class WorkFrame extends JFrame implements Consumer {
     }
 
     private void menuItem3ActionPerformed(ActionEvent e) {
-        textArea1.setText("Building modification JAR... \n");
+        System.out.println("Building modification JAR.");
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -83,7 +83,7 @@ public class WorkFrame extends JFrame implements Consumer {
             }
         };
         worker.execute();
-        textArea1.append("Finished building modification JAR.");
+        System.out.println("Finished building modification JAR.");
     }
 
     private void createUIComponents() {
@@ -203,6 +203,13 @@ public class WorkFrame extends JFrame implements Consumer {
         }
     }
 
+    private void menuItem11ActionPerformed(ActionEvent e) {
+        PrintStream previous = System.out;
+        OutputFrame frame = new OutputFrame(this);
+        System.setOut(new PrintStream(new StreamCapturer("OpenByte", frame, previous)));
+        frame.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
@@ -214,6 +221,8 @@ public class WorkFrame extends JFrame implements Consumer {
         menuItem5 = new JMenuItem();
         menu3 = new JMenu();
         menuItem7 = new JMenuItem();
+        menu6 = new JMenu();
+        menuItem11 = new JMenuItem();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
         menuItem2 = new JMenuItem();
@@ -222,19 +231,16 @@ public class WorkFrame extends JFrame implements Consumer {
         menuItem9 = new JMenuItem();
         menu5 = new JMenu();
         menuItem10 = new JMenuItem();
-        scrollPane2 = new JScrollPane();
-        textArea1 = new JTextArea();
-        rTextScrollPane1 = new RTextScrollPane();
-        rSyntaxTextArea1 = new RSyntaxTextArea();
         scrollPane3 = new JScrollPane();
         tree1 = new JTree();
+        rTextScrollPane1 = new RTextScrollPane();
+        rSyntaxTextArea1 = new RSyntaxTextArea();
 
         //======== this ========
         setTitle("Project Workspace");
-        setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Container contentPane = getContentPane();
-        contentPane.setLayout(null);
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 
         //======== menuBar1 ========
         {
@@ -300,6 +306,22 @@ public class WorkFrame extends JFrame implements Consumer {
                 menu3.add(menuItem7);
             }
             menuBar1.add(menu3);
+
+            //======== menu6 ========
+            {
+                menu6.setText("View");
+
+                //---- menuItem11 ----
+                menuItem11.setText("Output");
+                menuItem11.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuItem11ActionPerformed(e);
+                    }
+                });
+                menu6.add(menuItem11);
+            }
+            menuBar1.add(menu6);
 
             //======== menu1 ========
             {
@@ -373,18 +395,23 @@ public class WorkFrame extends JFrame implements Consumer {
         }
         setJMenuBar(menuBar1);
 
-        //======== scrollPane2 ========
+        //======== scrollPane3 ========
         {
-            scrollPane2.setBorder(null);
+            scrollPane3.setBorder(null);
 
-            //---- textArea1 ----
-            textArea1.setEditable(false);
-            textArea1.setBorder(new TitledBorder(LineBorder.createGrayLineBorder(), "Output"));
-            textArea1.setBackground(new Color(240, 240, 240));
-            scrollPane2.setViewportView(textArea1);
+            //---- tree1 ----
+            tree1.setBorder(new TitledBorder(LineBorder.createGrayLineBorder(), "File Manager"));
+            tree1.setBackground(new Color(240, 240, 240));
+            tree1.setPreferredSize(new Dimension(-600, 85));
+            tree1.addTreeSelectionListener(new TreeSelectionListener() {
+                @Override
+                public void valueChanged(TreeSelectionEvent e) {
+                    tree1ValueChanged(e);
+                }
+            });
+            scrollPane3.setViewportView(tree1);
         }
-        contentPane.add(scrollPane2);
-        scrollPane2.setBounds(355, 610, 850, 100);
+        contentPane.add(scrollPane3);
 
         //======== rTextScrollPane1 ========
         {
@@ -396,39 +423,6 @@ public class WorkFrame extends JFrame implements Consumer {
             rTextScrollPane1.setViewportView(rSyntaxTextArea1);
         }
         contentPane.add(rTextScrollPane1);
-        rTextScrollPane1.setBounds(355, 10, 850, 590);
-
-        //======== scrollPane3 ========
-        {
-            scrollPane3.setBorder(null);
-
-            //---- tree1 ----
-            tree1.setBorder(new TitledBorder(LineBorder.createGrayLineBorder(), "File Manager"));
-            tree1.setBackground(new Color(240, 240, 240));
-            tree1.addTreeSelectionListener(new TreeSelectionListener() {
-                @Override
-                public void valueChanged(TreeSelectionEvent e) {
-                    tree1ValueChanged(e);
-                }
-            });
-            scrollPane3.setViewportView(tree1);
-        }
-        contentPane.add(scrollPane3);
-        scrollPane3.setBounds(5, 10, 340, 705);
-
-        { // compute preferred size
-            Dimension preferredSize = new Dimension();
-            for(int i = 0; i < contentPane.getComponentCount(); i++) {
-                Rectangle bounds = contentPane.getComponent(i).getBounds();
-                preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-            }
-            Insets insets = contentPane.getInsets();
-            preferredSize.width += insets.right;
-            preferredSize.height += insets.bottom;
-            contentPane.setMinimumSize(preferredSize);
-            contentPane.setPreferredSize(preferredSize);
-        }
         setSize(1230, 785);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -444,6 +438,8 @@ public class WorkFrame extends JFrame implements Consumer {
     private JMenuItem menuItem5;
     private JMenu menu3;
     private JMenuItem menuItem7;
+    private JMenu menu6;
+    private JMenuItem menuItem11;
     private JMenu menu1;
     private JMenuItem menuItem1;
     private JMenuItem menuItem2;
@@ -452,16 +448,9 @@ public class WorkFrame extends JFrame implements Consumer {
     private JMenuItem menuItem9;
     private JMenu menu5;
     private JMenuItem menuItem10;
-    private JScrollPane scrollPane2;
-    private JTextArea textArea1;
-    private RTextScrollPane rTextScrollPane1;
-    private RSyntaxTextArea rSyntaxTextArea1;
     private JScrollPane scrollPane3;
     private JTree tree1;
+    private RTextScrollPane rTextScrollPane1;
+    private RSyntaxTextArea rSyntaxTextArea1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
-
-    @Override
-    public void appendText(String text) {
-
-    }
 }

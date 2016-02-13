@@ -3,30 +3,25 @@ JFDML JFormDesigner: "5.2.2.2.228" Java: "1.8.0_51" encoding: "UTF-8"
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
-		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class javax.swing.BoxLayout ) ) {
 			name: "this"
 			"title": "Project Workspace"
 			"$sizePolicy": 1
-			"resizable": false
 			"defaultCloseOperation": 3
 			auxiliary() {
 				"JavaCodeGenerator.customCreate": true
 				"JavaCodeGenerator.customCreateCode": "new JTree(addNodes(null, dir));"
 			}
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "scrollPane2"
+				name: "scrollPane3"
 				"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
-				add( new FormComponent( "javax.swing.JTextArea" ) {
-					name: "textArea1"
-					"editable": false
-					"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( sfield java.awt.Color gray, 1, false ), "Output" )
+				add( new FormComponent( "javax.swing.JTree" ) {
+					name: "tree1"
+					"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( sfield java.awt.Color gray, 1, false ), "File Manager" )
 					"background": new java.awt.Color( 240, 240, 240, 255 )
+					"preferredSize": new java.awt.Dimension( -600, 85 )
+					addEvent( new FormEvent( "javax.swing.event.TreeSelectionListener", "valueChanged", "tree1ValueChanged", true ) )
 				} )
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 355
-				"y": 610
-				"width": 850
-				"height": 100
 			} )
 			add( new FormContainer( "org.fife.ui.rtextarea.RTextScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "rTextScrollPane1"
@@ -36,26 +31,6 @@ new FormModel {
 					"syntaxEditingStyle": "text/java"
 					"background": new java.awt.Color( 255, 255, 255, 255 )
 				} )
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 355
-				"y": 10
-				"width": 850
-				"height": 590
-			} )
-			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "scrollPane3"
-				"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
-				add( new FormComponent( "javax.swing.JTree" ) {
-					name: "tree1"
-					"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( sfield java.awt.Color gray, 1, false ), "File Manager" )
-					"background": new java.awt.Color( 240, 240, 240, 255 )
-					addEvent( new FormEvent( "javax.swing.event.TreeSelectionListener", "valueChanged", "tree1ValueChanged", true ) )
-				} )
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 5
-				"y": 10
-				"width": 340
-				"height": 705
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar1"
@@ -90,6 +65,15 @@ new FormModel {
 						name: "menuItem7"
 						"text": "Delete"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem7ActionPerformed", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu6"
+					"text": "View"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem11"
+						"text": "Output"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem11ActionPerformed", true ) )
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
