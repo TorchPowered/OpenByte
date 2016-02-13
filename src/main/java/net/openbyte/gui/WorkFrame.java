@@ -82,6 +82,8 @@ public class WorkFrame extends JFrame implements Consumer {
                 return null;
             }
         };
+        worker.execute();
+        textArea1.append("Finished building modification JAR.");
     }
 
     private void createUIComponents() {
