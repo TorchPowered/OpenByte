@@ -27,6 +27,9 @@ public class WelcomeFrame extends JFrame {
     public static DefaultListModel listItems = new DefaultListModel();
 
     public WelcomeFrame() {
+        listItems.clear();
+        Launch.projectNames.clear();
+        Launch.nameToSolution.clear();
         initComponents();
         list1.setModel(listItems);
         try {
@@ -114,6 +117,12 @@ public class WelcomeFrame extends JFrame {
         workFrame.setVisible(true);
     }
 
+    private void button6ActionPerformed(ActionEvent e) {
+        setVisible(false);
+        SettingsFrame settingsFrame = new SettingsFrame((Dialog) null);
+        settingsFrame.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
@@ -129,6 +138,7 @@ public class WelcomeFrame extends JFrame {
         label4 = new JLabel();
         scrollPane2 = new JScrollPane();
         xImagePanel1 = new JXImagePanel();
+        button6 = new JButton();
 
         //======== this ========
         setTitle("Welcome to OpenByte");
@@ -170,7 +180,7 @@ public class WelcomeFrame extends JFrame {
         //---- label2 ----
         label2.setText("Media");
         contentPane.add(label2);
-        label2.setBounds(new Rectangle(new Point(615, 265), label2.getPreferredSize()));
+        label2.setBounds(new Rectangle(new Point(615, 240), label2.getPreferredSize()));
 
         //---- button2 ----
         button2.setText("Minecraft Forums");
@@ -181,7 +191,7 @@ public class WelcomeFrame extends JFrame {
             }
         });
         contentPane.add(button2);
-        button2.setBounds(500, 285, 151, button2.getPreferredSize().height);
+        button2.setBounds(500, 260, 151, button2.getPreferredSize().height);
 
         //---- button3 ----
         button3.setText("GitHub");
@@ -192,7 +202,7 @@ public class WelcomeFrame extends JFrame {
             }
         });
         contentPane.add(button3);
-        button3.setBounds(500, 315, 150, button3.getPreferredSize().height);
+        button3.setBounds(500, 290, 150, button3.getPreferredSize().height);
 
         //---- label3 ----
         label3.setText("OpenByte v0.1 maintained by Swatcommader6.");
@@ -235,6 +245,17 @@ public class WelcomeFrame extends JFrame {
         contentPane.add(scrollPane2);
         scrollPane2.setBounds(210, 25, 445, 160);
 
+        //---- button6 ----
+        button6.setText("Preferences");
+        button6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                button6ActionPerformed(e);
+            }
+        });
+        contentPane.add(button6);
+        button6.setBounds(500, 320, 150, 23);
+
         { // compute preferred size
             Dimension preferredSize = new Dimension();
             for(int i = 0; i < contentPane.getComponentCount(); i++) {
@@ -267,5 +288,6 @@ public class WelcomeFrame extends JFrame {
     private JLabel label4;
     private JScrollPane scrollPane2;
     private JXImagePanel xImagePanel1;
+    private JButton button6;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

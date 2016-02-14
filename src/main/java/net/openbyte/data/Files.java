@@ -7,7 +7,7 @@ import java.io.IOException;
  * Represents important openbyte directories
  */
 public class Files {
-    public static final File WORKSPACE_DIRECTORY = new File(System.getProperty("user.home"), ".openbyte");
+    public static File WORKSPACE_DIRECTORY = new File(System.getProperty("user.home"), ".openbyte");
     public static final File PLUGINS_DIRECTORY = new File(WORKSPACE_DIRECTORY, "plugins");
 
     /**
