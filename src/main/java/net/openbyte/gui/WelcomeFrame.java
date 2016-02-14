@@ -205,7 +205,7 @@ public class WelcomeFrame extends JFrame {
         button3.setBounds(500, 290, 150, button3.getPreferredSize().height);
 
         //---- label3 ----
-        label3.setText("OpenByte v0.92 maintained by Swatcommader6.");
+        label3.setText("OpenByte v0.93 maintained by Swatcommader6.");
         contentPane.add(label3);
         label3.setBounds(new Rectangle(new Point(415, 350), label3.getPreferredSize()));
 

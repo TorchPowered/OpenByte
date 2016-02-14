@@ -25,7 +25,7 @@ public class Launch {
     public static final Logger logger = LoggerFactory.getLogger("OpenByte");
     public static final ArrayList<String> projectNames = new ArrayList<String>();
     public static final HashMap<String, OpenProjectSolution> nameToSolution = new HashMap<String, OpenProjectSolution>();
-    public static final double CURRENT_VERSION = 0.92;
+    public static final double CURRENT_VERSION = 0.93;
 
     public static void main(String[] args){
         logger.info("Checking for a new version...");
