@@ -8,6 +8,7 @@ sourceCompatibility = 1.7
 repositories {
     mavenCentral()
     maven { url 'http://repo.gradle.org/gradle/libs-releases-local' }
+    maven { url 'http://maven.jenkins-ci.org/content/repositories/releases/' }
 }
 
 jar {

@@ -42,5 +42,6 @@
     <orderEntry type="library" name="Gradle: com.infradna.tool:bridge-method-annotation:1.14" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.2.3" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.2.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.jenkins-ci:annotation-indexer:1.4" level="project" />
   </component>
 </module>

@@ -65,7 +65,7 @@ public class Launch {
 		}
         logger.info("Detecting plugin files...");
         File[] pluginFiles = PluginManager.getPluginFiles(Files.PLUGINS_DIRECTORY);
-        logger.info("Detected " + pluginFiles.length + " in the plugins directory!");
+        logger.info("Detected " + pluginFiles.length + " plugin files in the plugins directory!");
         logger.info("Beginning load/register plugin process...");
         for (File pluginFile : pluginFiles) {
             logger.info("Loading file " + FilenameUtils.removeExtension(pluginFile.getName()) + "...");
