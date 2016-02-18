@@ -205,9 +205,9 @@ public class WelcomeFrame extends JFrame {
         button3.setBounds(500, 290, 150, button3.getPreferredSize().height);
 
         //---- label3 ----
-        label3.setText("OpenByte v0.93 maintained by Swatcommader6.");
+        label3.setText("OpenByte 1.0");
         contentPane.add(label3);
-        label3.setBounds(new Rectangle(new Point(415, 350), label3.getPreferredSize()));
+        label3.setBounds(new Rectangle(new Point(565, 350), label3.getPreferredSize()));
 
         //---- button4 ----
         button4.setText("+");
@@ -233,9 +233,10 @@ public class WelcomeFrame extends JFrame {
         button5.setBounds(60, 355, 40, button5.getPreferredSize().height);
 
         //---- label4 ----
-        label4.setText("Original idea was from TheVBGuyDaniel.");
+        label4.setText("Community Edition - No license required.");
+        label4.setFont(label4.getFont().deriveFont(label4.getFont().getStyle() | Font.BOLD));
         contentPane.add(label4);
-        label4.setBounds(460, 365, 265, label4.getPreferredSize().height);
+        label4.setBounds(365, 370, 300, label4.getPreferredSize().height);
 
         //======== scrollPane2 ========
         {
