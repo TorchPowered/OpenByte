@@ -92,4 +92,23 @@ public class PluginManager {
             }
         });
     }
+
+    /**
+     * Retrieves all loaded/registered abstract plugins.
+     *
+     * @return the loaded/registered abstract plugins
+     */
+    public static AbstractPlugin[] getAbstractPlugins() {
+        return abstractPlugins.toArray(new AbstractPlugin[abstractPlugins.size()]);
+    }
+
+    /**
+     * Retrieves a plugin description file from the specified plugin.
+     *
+     * @param plugin the plugin that the pluginmanager will find the plugin description file from
+     * @return the plugin description file, may be null
+     */
+    public static PluginDescriptionFile getPluginDescriptionFile(AbstractPlugin plugin) {
+        return pluginToDescriptionMap.get(plugin);
+    }
 }
