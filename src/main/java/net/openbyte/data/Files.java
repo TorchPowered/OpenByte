@@ -7,7 +7,13 @@ import java.io.IOException;
  * Represents important openbyte directories
  */
 public class Files {
+    /**
+     * Represents the current OpenByte workspace directory.
+     */
     public static File WORKSPACE_DIRECTORY = new File(System.getProperty("user.home"), ".openbyte");
+    /**
+     * Represents the plugins directory inside of the workspace directory.
+     */
     public static final File PLUGINS_DIRECTORY = new File(WORKSPACE_DIRECTORY, "plugins");
 
     /**

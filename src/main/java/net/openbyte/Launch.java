@@ -22,11 +22,31 @@ import java.util.HashMap;
  */
 public class Launch {
 
+    /**
+     * The SLF4J logger to the console.
+     */
     public static final Logger logger = LoggerFactory.getLogger("OpenByte");
+
+    /**
+     * The list of project names current loaded into runtime
+     */
     public static final ArrayList<String> projectNames = new ArrayList<String>();
+
+    /**
+     * A map to convert names to solutions.
+     */
     public static final HashMap<String, OpenProjectSolution> nameToSolution = new HashMap<String, OpenProjectSolution>();
+
+    /**
+     * A double that updates every release and contains the current version.
+     */
     public static final double CURRENT_VERSION = 1.0;
 
+    /**
+     * This is the main method that allows Java to initiate the program.
+     *
+     * @param args the arguments to the Java program, which are ignored
+     */
     public static void main(String[] args){
         logger.info("Checking for a new version...");
         try {

@@ -1,21 +1,21 @@
 package net.openbyte.plugin;
 
 /**
- * Represents the IDE in the API.
+ * Representation of the environment inside of the API.
  *
  * @since API Version 1.0 final
  */
 public class IDE {
 
-    // No inits for this class
+    // Disables allowing to create new instances of the class.
     private IDE(){}
 
     /**
-     * Retrieves a IDE class
+     * Retrieves a class which is inside of the IDE.
      *
-     * @param className the IDE class name
-     * @return the IDE Class
-     * @throws IllegalAccessException if it is not a IDE class
+     * @param className the name of the class which you want to get
+     * @return the class specified inside of the IDE
+     * @throws IllegalAccessException if the class specified is not a class inside of the IDE
      */
     public static Class getIDEClass(String className) throws IllegalAccessException {
         if(!className.startsWith("net.openbyte.")) {

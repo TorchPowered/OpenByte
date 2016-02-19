@@ -4,12 +4,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 /**
- * Some file utilities.
+ * File utilities for OpenByte, to make file IO easier.
  */
 public class FileUtil {
 
     /**
-     * Sets the content of the file
+     * Sets the content of the file via the format provided.
+     *
      * @param format the format that the file with be formatted
      * @param file the file that will be formatted
      */

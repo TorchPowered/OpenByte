@@ -1,12 +1,13 @@
 package net.openbyte;
 
 /**
- * Represents class formats
+ * Represents class formats used for creating a new file.
  */
 public class Formats {
 
     /**
-     * Represents the class format
+     * Represents the regular class creation format.
+     *
      * @param thePackage the package the class is in
      * @param className the class name
      * @return the format
@@ -17,8 +18,9 @@ public class Formats {
     }
 
     /**
-     * Represents the interface format
-     * @param thePackage the packet the interface is in
+     * Represents the java interface class format.
+     *
+     * @param thePackage the package the interface is in
      * @param interfaceName the interface name
      * @return the format
      */
