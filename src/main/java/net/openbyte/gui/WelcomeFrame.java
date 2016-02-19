@@ -81,7 +81,7 @@ public class WelcomeFrame extends JFrame {
     }
 
     private void button3ActionPerformed(ActionEvent e) {
-        openWebpage("https://github.com/PizzaCrust/OpenByte");
+        openWebpage("https://github.com/TorchPowered/OpenByte");
     }
 
     private void button4ActionPerformed(ActionEvent e) {
@@ -205,9 +205,9 @@ public class WelcomeFrame extends JFrame {
         button3.setBounds(500, 290, 150, button3.getPreferredSize().height);
 
         //---- label3 ----
-        label3.setText("OpenByte 1.0");
+        label3.setText("OpenByte 1.0 - TorchPowered");
         contentPane.add(label3);
-        label3.setBounds(new Rectangle(new Point(565, 350), label3.getPreferredSize()));
+        label3.setBounds(new Rectangle(new Point(445, 350), label3.getPreferredSize()));
 
         //---- button4 ----
         button4.setText("+");

@@ -61,9 +61,9 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label3"
-				"text": "OpenByte 1.0"
+				"text": "OpenByte 1.0 - TorchPowered"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 565
+				"x": 445
 				"y": 350
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
