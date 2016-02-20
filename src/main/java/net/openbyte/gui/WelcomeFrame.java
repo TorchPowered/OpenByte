@@ -123,6 +123,11 @@ public class WelcomeFrame extends JFrame {
         settingsFrame.setVisible(true);
     }
 
+    private void button7ActionPerformed(ActionEvent e) {
+        AboutFrame aboutFrame = new AboutFrame();
+        aboutFrame.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
@@ -132,13 +137,12 @@ public class WelcomeFrame extends JFrame {
         label2 = new JLabel();
         button2 = new JButton();
         button3 = new JButton();
-        label3 = new JLabel();
         button4 = new JButton();
         button5 = new JButton();
-        label4 = new JLabel();
         scrollPane2 = new JScrollPane();
         xImagePanel1 = new JXImagePanel();
         button6 = new JButton();
+        button7 = new JButton();
 
         //======== this ========
         setTitle("Welcome to OpenByte");
@@ -180,7 +184,7 @@ public class WelcomeFrame extends JFrame {
         //---- label2 ----
         label2.setText("Media");
         contentPane.add(label2);
-        label2.setBounds(new Rectangle(new Point(615, 240), label2.getPreferredSize()));
+        label2.setBounds(new Rectangle(new Point(615, 225), label2.getPreferredSize()));
 
         //---- button2 ----
         button2.setText("Minecraft Forums");
@@ -191,7 +195,7 @@ public class WelcomeFrame extends JFrame {
             }
         });
         contentPane.add(button2);
-        button2.setBounds(500, 260, 151, button2.getPreferredSize().height);
+        button2.setBounds(500, 245, 151, button2.getPreferredSize().height);
 
         //---- button3 ----
         button3.setText("GitHub");
@@ -202,12 +206,7 @@ public class WelcomeFrame extends JFrame {
             }
         });
         contentPane.add(button3);
-        button3.setBounds(500, 290, 150, button3.getPreferredSize().height);
-
-        //---- label3 ----
-        label3.setText("OpenByte 1.0 - TorchPowered");
-        contentPane.add(label3);
-        label3.setBounds(new Rectangle(new Point(445, 350), label3.getPreferredSize()));
+        button3.setBounds(500, 275, 150, button3.getPreferredSize().height);
 
         //---- button4 ----
         button4.setText("+");
@@ -232,12 +231,6 @@ public class WelcomeFrame extends JFrame {
         contentPane.add(button5);
         button5.setBounds(60, 355, 40, button5.getPreferredSize().height);
 
-        //---- label4 ----
-        label4.setText("Community Edition - No license required.");
-        label4.setFont(label4.getFont().deriveFont(label4.getFont().getStyle() | Font.BOLD));
-        contentPane.add(label4);
-        label4.setBounds(365, 370, 300, label4.getPreferredSize().height);
-
         //======== scrollPane2 ========
         {
             scrollPane2.setBorder(null);
@@ -255,7 +248,18 @@ public class WelcomeFrame extends JFrame {
             }
         });
         contentPane.add(button6);
-        button6.setBounds(500, 320, 150, 23);
+        button6.setBounds(500, 305, 150, 30);
+
+        //---- button7 ----
+        button7.setText("About");
+        button7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                button7ActionPerformed(e);
+            }
+        });
+        contentPane.add(button7);
+        button7.setBounds(500, 335, 150, 30);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -283,12 +287,11 @@ public class WelcomeFrame extends JFrame {
     private JLabel label2;
     private JButton button2;
     private JButton button3;
-    private JLabel label3;
     private JButton button4;
     private JButton button5;
-    private JLabel label4;
     private JScrollPane scrollPane2;
     private JXImagePanel xImagePanel1;
     private JButton button6;
+    private JButton button7;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

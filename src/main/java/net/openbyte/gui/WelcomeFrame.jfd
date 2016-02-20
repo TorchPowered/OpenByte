@@ -39,7 +39,7 @@ new FormModel {
 				"text": "Media"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 615
-				"y": 240
+				"y": 225
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button2"
@@ -47,7 +47,7 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button2ActionPerformed", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 500
-				"y": 260
+				"y": 245
 				"width": 151
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -56,15 +56,8 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button3ActionPerformed", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 500
-				"y": 290
+				"y": 275
 				"width": 150
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label3"
-				"text": "OpenByte 1.0 - TorchPowered"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 445
-				"y": 350
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button4"
@@ -85,15 +78,6 @@ new FormModel {
 				"y": 355
 				"width": 40
 			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label4"
-				"text": "Community Edition - No license required."
-				"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 365
-				"y": 370
-				"width": 300
-			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane2"
 				"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
@@ -112,9 +96,19 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button6ActionPerformed", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 150
-				"height": 23
+				"height": 30
 				"x": 500
-				"y": 320
+				"y": 305
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button7"
+				"text": "About"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button7ActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 150
+				"height": 30
+				"x": 500
+				"y": 335
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 10, 0 )
