@@ -75,7 +75,8 @@ public class OpenProjectSolution {
      * Deletes the solution.
      */
     public void deleteSolution(){
-        JOptionPane.showMessageDialog(null, "Delete the solution file manually at this location: " + saveToFile.getAbsolutePath() + " after you have closed the application.", "Delete the solution", JOptionPane.INFORMATION_MESSAGE);
+        System.gc();
+        saveToFile.delete();
     }
 
     /**

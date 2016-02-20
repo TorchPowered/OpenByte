@@ -17,7 +17,10 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import javax.swing.*;
+
+import org.apache.commons.io.FileUtils;
 import org.jdesktop.swingx.*;
 
 /**
@@ -104,9 +107,15 @@ public class WelcomeFrame extends JFrame {
         String selectedText = (String) list1.getSelectedValue();
         listItems.remove(list1.getSelectedIndex());
         OpenProjectSolution solution = Launch.nameToSolution.get(selectedText);
-        solution.getProjectFolder().delete();
+        System.gc();
+        try {
+            FileUtils.deleteDirectory(solution.getProjectFolder());
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
         list1.clearSelection();
         solution.deleteSolution();
+        JOptionPane.showMessageDialog(this, "Deleted the project successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void button1ActionPerformed(ActionEvent e) {
