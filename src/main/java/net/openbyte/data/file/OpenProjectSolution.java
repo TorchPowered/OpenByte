@@ -1,5 +1,7 @@
 package net.openbyte.data.file;
 
+import net.openbyte.enums.ModificationAPI;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -99,5 +101,23 @@ public class OpenProjectSolution {
 
     public void setProjectFolder(File file){
         solution.setProperty("folderPath", file.getAbsolutePath());
+    }
+
+    public void setModificationAPI(ModificationAPI api) {
+        if(api == ModificationAPI.MCP) {
+            solution.setProperty("api", "mcp");
+            save();
+            return;
+        }
+        solution.setProperty("api", "forge");
+        save();
+    }
+
+    public ModificationAPI getModificationAPI() {
+        String api = solution.getProperty("api", "forge");
+        if(api.equals("forge")) {
+            return ModificationAPI.MINECRAFT_FORGE;
+        }
+        return ModificationAPI.MCP;
     }
 }

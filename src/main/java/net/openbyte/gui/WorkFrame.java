@@ -13,6 +13,7 @@ import javax.swing.event.*;
 
 import net.openbyte.gui.logger.StreamCapturer;
 import net.openbyte.model.FileSystemModel;
+import org.apache.commons.exec.CommandLine;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.fife.rsta.ac.java.JavaLanguageSupport;

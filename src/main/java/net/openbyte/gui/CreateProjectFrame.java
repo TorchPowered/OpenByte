@@ -10,6 +10,8 @@ import net.openbyte.data.Files;
 import net.openbyte.data.file.OpenProjectSolution;
 import net.openbyte.enums.MinecraftVersion;
 import net.openbyte.enums.ModificationAPI;
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.io.FileUtils;
 import org.gradle.tooling.GradleConnector;
 
@@ -45,11 +47,24 @@ public class CreateProjectFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Project has already been created.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        ModificationAPI modificationAPI = ModificationAPI.MINECRAFT_FORGE;
+        if(comboBox1.getSelectedIndex() == 1) {
+            modificationAPI = ModificationAPI.MCP;
+        }
         MinecraftVersion minecraftVersion = MinecraftVersion.BOUNTIFUL_UPDATE;
-        if(comboBox1.getSelectedIndex() == 1){
+        if(((String)comboBox2.getSelectedItem()).equals("1.7.10")){
             minecraftVersion = MinecraftVersion.THE_UPDATE_THAT_CHANGED_THE_WORLD;
         }
-        ModificationAPI modificationAPI = ModificationAPI.MINECRAFT_FORGE;
+        if(modificationAPI == ModificationAPI.MCP) {
+            minecraftVersion = MinecraftVersion.COMBAT_UPDATE;
+            String version = (String) comboBox2.getSelectedItem();
+            if (version.equals("1.8.9")){
+                minecraftVersion = MinecraftVersion.BOUNTIFUL_UPDATE;
+            }
+            if(version.equals("1.7.10")) {
+                minecraftVersion = MinecraftVersion.THE_UPDATE_THAT_CHANGED_THE_WORLD;
+            }
+        }
         this.version = minecraftVersion;
         this.api = modificationAPI;
         setVisible(false);
@@ -79,11 +94,30 @@ public class CreateProjectFrame extends JFrame {
         monitor.setNote("Creating solution for project...");
         createSolutionFile();
         monitor.setProgress(60);
-        monitor.setNote("Cloning Minecraft Forge...");
+        monitor.setNote("Cloning API...");
         cloneAPI();
         monitor.setProgress(90);
         monitor.setNote("Decompiling Minecraft...");
-        GradleConnector.newConnector().forProjectDirectory(projectFolder).connect().newBuild().setJvmArguments("-XX:-UseGCOverheadLimit").forTasks("setupDecompWorkspace").run();
+        if(this.api == ModificationAPI.MCP) {
+            if(System.getProperty("os.name").startsWith("Windows")) {
+                try {
+                    Runtime.getRuntime().exec("cmd /c decompile.bat", null, projectFolder);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    CommandLine commandLine = CommandLine.parse("sh " + new File(projectFolder, "decompile.sh").getAbsolutePath());
+                    DefaultExecutor executor = new DefaultExecutor();
+                    executor.setWorkingDirectory(projectFolder);
+                    executor.execute(commandLine);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            GradleConnector.newConnector().forProjectDirectory(projectFolder).connect().newBuild().setJvmArguments("-XX:-UseGCOverheadLimit").forTasks("setupDecompWorkspace").run();
+        }
         monitor.close();
         WelcomeFrame welcomeFrame = new WelcomeFrame();
         welcomeFrame.setVisible(true);
@@ -100,6 +134,7 @@ public class CreateProjectFrame extends JFrame {
         OpenProjectSolution solution = OpenProjectSolution.getProjectSolutionFromFile(solutionFile);
         solution.setProjectFolder(this.projectFolder);
         solution.setProjectName(projectName);
+        solution.setModificationAPI(this.api);
     }
 
     private void cloneAPI(){
@@ -120,6 +155,47 @@ public class CreateProjectFrame extends JFrame {
                 forgeZip.delete();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+        if(this.api == ModificationAPI.MCP) {
+            String link = "http://download933.mediafire.com/130haka1szmg/3ww1inazlkamkcc/mcp924-beta1.zip";;
+            if(this.version == MinecraftVersion.BOUNTIFUL_UPDATE) {
+                link = "http://www.modcoderpack.com/website/sites/default/files/releases/mcp918.zip";
+            }
+            if(this.version == MinecraftVersion.THE_UPDATE_THAT_CHANGED_THE_WORLD) {
+                link = "http://www.modcoderpack.com/website/sites/default/files/releases/mcp908.zip";
+            }
+            File mcpZip = new File(projectFolder, "mcp.zip");
+            try {
+                URL url = new URL(link);
+                FileUtils.copyURLToFile(url, mcpZip);
+                ZipFile zipFile = new ZipFile(mcpZip);
+                zipFile.extractAll(projectFolder.getAbsolutePath());
+                mcpZip.delete();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void comboBox1ItemStateChanged(ItemEvent e) {
+        if(e.getStateChange() == ItemEvent.SELECTED) {
+            if(comboBox1.getSelectedIndex() == 1) {
+                // mcp
+                if(!System.getProperty("os.name").startsWith("Windows")) {
+                    JOptionPane.showMessageDialog(this, "Python is required for MCP, please make sure you have Python installed.", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                }
+                String[] versions = new String[] { "1.9", "1.8.9", "1.7.10" };
+                DefaultComboBoxModel mcpModel = new DefaultComboBoxModel(versions);
+                comboBox2.setModel(mcpModel);
+                return;
+            }
+            if(comboBox1.getSelectedIndex() == 0) {
+                // mcforge
+                String[] versions = new String[] { "1.8.9", "1.7.10" };
+                DefaultComboBoxModel forgeModel = new DefaultComboBoxModel(versions);
+                comboBox2.setModel(forgeModel);
+                return;
             }
         }
     }
@@ -163,8 +239,15 @@ public class CreateProjectFrame extends JFrame {
 
         //---- comboBox1 ----
         comboBox1.setModel(new DefaultComboBoxModel<>(new String[] {
-            "Minecraft Forge"
+            "Minecraft Forge",
+            "MCP"
         }));
+        comboBox1.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                comboBox1ItemStateChanged(e);
+            }
+        });
         contentPane.add(comboBox1);
         comboBox1.setBounds(10, 70, 245, comboBox1.getPreferredSize().height);
 

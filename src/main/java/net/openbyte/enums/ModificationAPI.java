@@ -5,5 +5,5 @@ package net.openbyte.enums;
  */
 public enum ModificationAPI {
     MINECRAFT_FORGE,
-    LITELOADER,
+    MCP,
 }
