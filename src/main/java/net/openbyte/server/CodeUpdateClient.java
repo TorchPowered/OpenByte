@@ -50,11 +50,12 @@ public class CodeUpdateClient {
     private EventLoopGroup workerGroup = new NioEventLoopGroup();
     private ChannelFuture future;
     private String clientName = new File(System.getProperty("user.home")).getName();
+    private ClientChannelHandler handler = new ClientChannelHandler(projectDirectory, clientName);
     private Bootstrap clientBootstrap = new Bootstrap()
             .group(workerGroup)
             .channel(NioSocketChannel.class)
-            .handler(new ClientChannelHandler(clientName));
-    private String authenticationId = null;
+            .handler(handler);
+    private String authenticationId = handler.getAuthenticationId();
     private boolean connected = false;
 
     private InetSocketAddress address;
@@ -84,6 +85,16 @@ public class CodeUpdateClient {
         workerGroup.shutdownGracefully();
     }
 
+    public void addFile(String filePath, String content) throws Exception {
+        ByteBuf packet = new PacketBuilder()
+                .varInt(0x01)
+                .string(authenticationId)
+                .string(filePath)
+                .string(content)
+                .build();
+        future.channel().writeAndFlush(packet);
+    }
+
     public static void main(String[] args) throws Exception {
         System.out.println("Starting server...");
         CodeUpdateServer server = new CodeUpdateServer();
@@ -96,12 +107,12 @@ public class CodeUpdateClient {
         while (true) {}
     }
 
-
     public static class ClientChannelHandler extends ChannelHandlerAdapter {
         private String clientName;
+        private File projectDirectory;
         private String authenticationId = UUID.randomUUID().toString();
 
-        public ClientChannelHandler(String clientName) { this.clientName = clientName; }
+        public ClientChannelHandler(File projectDirectory, String clientName) { this.projectDirectory = projectDirectory; this.clientName = clientName; }
 
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -112,6 +123,10 @@ public class CodeUpdateClient {
                     .varInt(0)
                     .build();
             ctx.writeAndFlush(connectionPacket);
+        }
+
+        public String getAuthenticationId() {
+            return authenticationId;
         }
 
         @Override
@@ -135,9 +150,24 @@ public class CodeUpdateClient {
                 String filePath = ByteBufDecoders.readUTF8(read);
                 String content = ByteBufDecoders.readUTF8(read);
 
-                File file = new File(filePath);
+                File file = new File(projectDirectory, filePath);
                 file.getParentFile().mkdirs();
                 file.createNewFile();
+
+                FileUtil.format(content, file);
+                return;
+            }
+
+            if (packetId == 0x02) {
+                // update file packet
+                String filePath = ByteBufDecoders.readUTF8(read);
+                String content = ByteBufDecoders.readUTF8(read);
+
+                File file = new File(projectDirectory, filePath);
+
+                if(!file.exists()) {
+                    return;
+                }
 
                 FileUtil.format(content, file);
                 return;
