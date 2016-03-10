@@ -141,6 +141,20 @@ public final class CodeUpdateServer {
                                     System.out.println("Invalid authentication packet sent!");
                                     authPacketSent = true;
                                 }
+                                if(packetId == 0x05) {
+                                    System.out.println("Security measures have been tested successfully!");
+                                    System.out.println("Tests are done, running disconnect protocol...");
+
+                                    ByteBuf packet = new PacketBuilder()
+                                            .varInt(0x08)
+                                            .string(authenticationId)
+                                            .string("TEST_CLIENT")
+                                            .build();
+
+                                    context.writeAndFlush(packet);
+                                    System.out.println("Tests have completed. Conclusive results: SUCCESS");
+                                    System.exit(0);
+                                }
                             }
                         });
                     }

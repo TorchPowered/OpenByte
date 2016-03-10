@@ -64,9 +64,20 @@ public class ProtocolChannelHandler extends ChannelHandlerAdapter {
                     .string(connection.getAuthenticationId())
                     .build();
             SERVER_CONNECTIONS.add(connection);
+            ByteBuf notifyPacket = new PacketBuilder()
+                    .varInt(0x07)
+                    .string(connection.getClientName())
+                    .string(connection.getEmailAddress())
+                    .varInt(connection.getClientId())
+                    .build();
 
             // send authenticate packet
             context.writeAndFlush(packet);
+            for (ServerConnection con : SERVER_CONNECTIONS) {
+                if(!con.getAuthenticationId().equals(connection.getAuthenticationId())) {
+                    con.getClientChannel().writeAndFlush(notifyPacket);
+                }
+            }
             return;
         }
 
@@ -81,6 +92,10 @@ public class ProtocolChannelHandler extends ChannelHandlerAdapter {
         }
         // check if authentication id to client was unsuccessful to prevent NPEs
         if (client == null) {
+            ByteBuf failedAuthPacket = new PacketBuilder()
+                    .varInt(0x05)
+                    .build();
+            context.writeAndFlush(failedAuthPacket);
             return;
         }
 
@@ -172,6 +187,25 @@ public class ProtocolChannelHandler extends ChannelHandlerAdapter {
 
             // send packet
             context.writeAndFlush(packet);
+            return;
+        }
+
+        if (packetId == 0x08) {
+            // disconnect packet
+            String clientName = ByteBufDecoders.readUTF8(read);
+
+            // generate packet
+            ByteBuf packet = new PacketBuilder()
+                    .varInt(0x08)
+                    .string(clientName)
+                    .build();
+
+            // send packet
+            for (ServerConnection con : SERVER_CONNECTIONS) {
+                if(!con.getAuthenticationId().equals(client.getAuthenticationId())) {
+                    con.getClientChannel().writeAndFlush(packet);
+                }
+            }
             return;
         }
     }
