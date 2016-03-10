@@ -1,3 +1,7 @@
 <component name="CopyrightManager">
-  <settings default="" />
+  <settings default="OpenByte">
+    <module2copyright>
+      <element module="All" copyright="OpenByte" />
+    </module2copyright>
+  </settings>
 </component>
