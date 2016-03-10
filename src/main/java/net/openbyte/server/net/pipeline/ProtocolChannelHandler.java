@@ -194,6 +194,12 @@ public class ProtocolChannelHandler extends ChannelHandlerAdapter {
             // disconnect packet
             String clientName = ByteBufDecoders.readUTF8(read);
 
+            for (ServerConnection con : SERVER_CONNECTIONS) {
+                if(con.getClientName().equals(clientName)) {
+                    SERVER_CONNECTIONS.remove(con);
+                }
+            }
+
             // generate packet
             ByteBuf packet = new PacketBuilder()
                     .varInt(0x08)
