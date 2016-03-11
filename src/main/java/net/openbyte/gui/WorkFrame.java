@@ -86,7 +86,15 @@ public class WorkFrame extends JFrame {
         //System.setOut(new PrintStream(new StreamCapturer("OpenByte", this, out)));
     }
 
+    private void showBukkitIncompatibleFeature() {
+        JOptionPane.showMessageDialog(this, "This feature is only compatible in other APIs, sorry.", "Error", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     private void menuItem1ActionPerformed(ActionEvent e) {
+        if(this.api == ModificationAPI.BUKKIT) {
+            showBukkitIncompatibleFeature();
+            return;
+        }
         System.out.println("Starting client...");
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
@@ -99,6 +107,10 @@ public class WorkFrame extends JFrame {
     }
 
     private void menuItem2ActionPerformed(ActionEvent e) {
+        if(this.api == ModificationAPI.BUKKIT) {
+            showBukkitIncompatibleFeature();
+            return;
+        }
         System.out.println("Starting server...");
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
@@ -111,6 +123,10 @@ public class WorkFrame extends JFrame {
     }
 
     private void menuItem3ActionPerformed(ActionEvent e) {
+        if(this.api == ModificationAPI.BUKKIT) {
+            showBukkitIncompatibleFeature();
+            return;
+        }
         System.out.println("Building modification JAR.");
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
