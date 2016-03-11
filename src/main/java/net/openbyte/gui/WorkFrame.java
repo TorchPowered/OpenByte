@@ -35,6 +35,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
+import net.openbyte.enums.ModificationAPI;
 import net.openbyte.event.UpdateFileEvent;
 import net.openbyte.event.handle.EventManager;
 import net.openbyte.gui.logger.StreamCapturer;
@@ -55,9 +56,11 @@ public class WorkFrame extends JFrame {
     private File workDirectory;
     private File selectedFile;
     private File selectedDirectory;
+    private ModificationAPI api;
 
-    public WorkFrame(File workDirectory) {
+    public WorkFrame(ModificationAPI api, File workDirectory) {
         this.workDirectory = workDirectory;
+        this.api = api;
         initComponents();
         KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
         menuItem4.setAccelerator(keyStroke);
@@ -67,6 +70,13 @@ public class WorkFrame extends JFrame {
             support.getJarManager().addCurrentJreClassFileSource();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if (api == ModificationAPI.BUKKIT) {
+            try {
+                support.getJarManager().addClassFileSource(new File(new File(workDirectory, "api"), "bukkit.jar"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         support.setAutoActivationDelay(0);
         support.setAutoCompleteEnabled(true);

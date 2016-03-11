@@ -147,7 +147,7 @@ public class WelcomeFrame extends JFrame {
         setVisible(false);
         String selectedText = (String) list1.getSelectedValue();
         OpenProjectSolution solution = Launch.nameToSolution.get(selectedText);
-        WorkFrame workFrame = new WorkFrame(solution.getProjectFolder());
+        WorkFrame workFrame = new WorkFrame(solution.getModificationAPI(), solution.getProjectFolder());
         workFrame.setVisible(true);
     }
 
