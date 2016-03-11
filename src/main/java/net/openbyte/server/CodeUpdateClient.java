@@ -95,6 +95,19 @@ public class CodeUpdateClient {
         future.channel().writeAndFlush(packet);
     }
 
+    public void updateFile(String filePath, String content) throws Exception {
+        if(!(new File(filePath).exists())) {
+            return;
+        }
+        ByteBuf packet = new PacketBuilder()
+                .varInt(0x02)
+                .string(authenticationId)
+                .string(filePath)
+                .string(content)
+                .build();
+        future.channel().writeAndFlush(packet);
+    }
+
     public static void main(String[] args) throws Exception {
         System.out.println("Starting server...");
         CodeUpdateServer server = new CodeUpdateServer();
