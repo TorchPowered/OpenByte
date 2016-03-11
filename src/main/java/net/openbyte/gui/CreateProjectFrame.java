@@ -72,8 +72,12 @@ public class CreateProjectFrame extends JFrame {
             return;
         }
         ModificationAPI modificationAPI = ModificationAPI.MINECRAFT_FORGE;
-        if(comboBox1.getSelectedIndex() == 1) {
+        String apiName = (String) comboBox1.getSelectedItem();
+        if(apiName.equals("MCP")) {
             modificationAPI = ModificationAPI.MCP;
+        }
+        if(apiName.equals("Bukkit")) {
+            modificationAPI = ModificationAPI.BUKKIT;
         }
         MinecraftVersion minecraftVersion = MinecraftVersion.BOUNTIFUL_UPDATE;
         if(((String)comboBox2.getSelectedItem()).equals("1.7.10")){
@@ -88,6 +92,9 @@ public class CreateProjectFrame extends JFrame {
             if(version.equals("1.7.10")) {
                 minecraftVersion = MinecraftVersion.THE_UPDATE_THAT_CHANGED_THE_WORLD;
             }
+        }
+        if(modificationAPI == ModificationAPI.BUKKIT) {
+            minecraftVersion = MinecraftVersion.COMBAT_UPDATE;
         }
         this.version = minecraftVersion;
         this.api = modificationAPI;
@@ -139,7 +146,8 @@ public class CreateProjectFrame extends JFrame {
                     e.printStackTrace();
                 }
             }
-        } else {
+        }
+        if (this.api == ModificationAPI.MINECRAFT_FORGE) {
             GradleConnector.newConnector().forProjectDirectory(projectFolder).connect().newBuild().setJvmArguments("-XX:-UseGCOverheadLimit").forTasks("setupDecompWorkspace").run();
         }
         monitor.close();
@@ -200,6 +208,26 @@ public class CreateProjectFrame extends JFrame {
                 e.printStackTrace();
             }
         }
+        if(this.api == ModificationAPI.BUKKIT) {
+            String link = "http://maven.torchpowered.gq/org/bukkit/1.9-R0.1-SNAPSHOT/Bukkit-1.9-R0.1-SNAPSHOT.jar";
+            File apiFolder = new File(projectFolder, "api");
+            apiFolder.mkdirs();
+            File apiJar = new File(apiFolder, "bukkit.jar");
+            try {
+                URL url = new URL(link);
+                FileUtils.copyURLToFile(url, apiJar);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            File src = new File(projectFolder, "src");
+            File main = new File(src, "main");
+            File java = new File(main, "java");
+            File resources = new File(main, "resources");
+            src.mkdir();
+            main.mkdir();
+            java.mkdir();
+            resources.mkdir();
+        }
     }
 
     private void comboBox1ItemStateChanged(ItemEvent e) {
@@ -219,6 +247,14 @@ public class CreateProjectFrame extends JFrame {
                 String[] versions = new String[] { "1.8.9", "1.7.10" };
                 DefaultComboBoxModel forgeModel = new DefaultComboBoxModel(versions);
                 comboBox2.setModel(forgeModel);
+                return;
+            }
+            if(((String) comboBox1.getSelectedItem()).equals("Bukkit")) {
+                // bukkit
+                JOptionPane.showMessageDialog(this, "Bukkit is solely ONLY the API, not the implementation!", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                String[] versions = new String[] { "1.9" };
+                DefaultComboBoxModel bukkitModel = new DefaultComboBoxModel(versions);
+                comboBox2.setModel(bukkitModel);
                 return;
             }
         }
@@ -264,7 +300,8 @@ public class CreateProjectFrame extends JFrame {
         //---- comboBox1 ----
         comboBox1.setModel(new DefaultComboBoxModel<>(new String[] {
             "Minecraft Forge",
-            "MCP"
+            "MCP",
+            "Bukkit"
         }));
         comboBox1.addItemListener(new ItemListener() {
             @Override

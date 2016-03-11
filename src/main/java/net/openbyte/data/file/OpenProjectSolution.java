@@ -133,6 +133,11 @@ public class OpenProjectSolution {
             save();
             return;
         }
+        if(api == ModificationAPI.BUKKIT) {
+            solution.setProperty("api", "bukkit");
+            save();
+            return;
+        }
         solution.setProperty("api", "forge");
         save();
     }
@@ -141,6 +146,9 @@ public class OpenProjectSolution {
         String api = solution.getProperty("api", "forge");
         if(api.equals("forge")) {
             return ModificationAPI.MINECRAFT_FORGE;
+        }
+        if(api.equals("bukkit")) {
+            return ModificationAPI.BUKKIT;
         }
         return ModificationAPI.MCP;
     }

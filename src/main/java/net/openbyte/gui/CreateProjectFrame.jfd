@@ -37,6 +37,7 @@ new FormModel {
 					selectedItem: "Minecraft Forge"
 					addElement( "Minecraft Forge" )
 					addElement( "MCP" )
+					addElement( "Bukkit" )
 				}
 				addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "comboBox1ItemStateChanged", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {

@@ -30,4 +30,5 @@ package net.openbyte.enums;
 public enum ModificationAPI {
     MINECRAFT_FORGE,
     MCP,
+    BUKKIT,
 }
