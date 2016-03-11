@@ -1,0 +1,63 @@
+JFDML JFormDesigner: "5.2.3.0.281" Java: "1.8.0_40-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			"title": "Plugins"
+			"resizable": false
+			"$sizePolicy": 1
+			add( new FormComponent( "javax.swing.JList" ) {
+				name: "list1"
+				"background": new java.awt.Color( 238, 238, 238, 255 )
+				"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( sfield java.awt.Color gray, 1, false ), "Plugins" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 5
+				"y": 5
+				"width": 175
+				"height": 470
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "No plugin listing has been selected!"
+				"font": new java.awt.Font( "Lucida Grande", 0, 20 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 185
+				"y": 185
+				"width": 405
+				"height": 65
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "textArea1"
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"lineWrap": true
+					"editable": false
+					"background": new java.awt.Color( 238, 238, 238, 255 )
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 185
+				"y": 240
+				"width": 405
+				"height": 230
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane2"
+				add( new FormComponent( "org.jdesktop.swingx.JXImagePanel" ) {
+					name: "xImagePanel1"
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 185
+				"y": 15
+				"width": 405
+				"height": 185
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 5 )
+			"size": new java.awt.Dimension( 600, 510 )
+		} )
+	}
+}
