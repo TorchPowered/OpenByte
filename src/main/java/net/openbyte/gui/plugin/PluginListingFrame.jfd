@@ -12,6 +12,7 @@ new FormModel {
 				name: "list1"
 				"background": new java.awt.Color( 238, 238, 238, 255 )
 				"border": new javax.swing.border.TitledBorder( new javax.swing.border.LineBorder( sfield java.awt.Color gray, 1, false ), "Plugins" )
+				addEvent( new FormEvent( "javax.swing.event.ListSelectionListener", "valueChanged", "list1ValueChanged", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 5
 				"y": 5
@@ -61,3 +62,4 @@ new FormModel {
 		} )
 	}
 }
+

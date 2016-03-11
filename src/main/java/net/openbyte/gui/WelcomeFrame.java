@@ -44,6 +44,7 @@ import java.net.URL;
 import java.nio.file.Paths;
 import javax.swing.*;
 
+import net.openbyte.gui.plugin.PluginListingFrame;
 import org.apache.commons.io.FileUtils;
 import org.jdesktop.swingx.*;
 
@@ -161,6 +162,11 @@ public class WelcomeFrame extends JFrame {
         aboutFrame.setVisible(true);
     }
 
+    private void button8ActionPerformed(ActionEvent e) {
+        PluginListingFrame frame = new PluginListingFrame(this);
+        frame.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
@@ -176,6 +182,7 @@ public class WelcomeFrame extends JFrame {
         xImagePanel1 = new JXImagePanel();
         button6 = new JButton();
         button7 = new JButton();
+        button8 = new JButton();
 
         //======== this ========
         setTitle("Welcome to OpenByte");
@@ -217,7 +224,7 @@ public class WelcomeFrame extends JFrame {
         //---- label2 ----
         label2.setText("Media");
         contentPane.add(label2);
-        label2.setBounds(new Rectangle(new Point(615, 225), label2.getPreferredSize()));
+        label2.setBounds(new Rectangle(new Point(605, 210), label2.getPreferredSize()));
 
         //---- button2 ----
         button2.setText("Minecraft Forums");
@@ -228,7 +235,7 @@ public class WelcomeFrame extends JFrame {
             }
         });
         contentPane.add(button2);
-        button2.setBounds(500, 245, 151, button2.getPreferredSize().height);
+        button2.setBounds(500, 230, 151, button2.getPreferredSize().height);
 
         //---- button3 ----
         button3.setText("GitHub");
@@ -239,7 +246,7 @@ public class WelcomeFrame extends JFrame {
             }
         });
         contentPane.add(button3);
-        button3.setBounds(500, 275, 150, button3.getPreferredSize().height);
+        button3.setBounds(500, 260, 150, button3.getPreferredSize().height);
 
         //---- button4 ----
         button4.setText("+");
@@ -281,7 +288,7 @@ public class WelcomeFrame extends JFrame {
             }
         });
         contentPane.add(button6);
-        button6.setBounds(500, 305, 150, 30);
+        button6.setBounds(500, 290, 150, 30);
 
         //---- button7 ----
         button7.setText("About");
@@ -292,7 +299,18 @@ public class WelcomeFrame extends JFrame {
             }
         });
         contentPane.add(button7);
-        button7.setBounds(500, 335, 150, 30);
+        button7.setBounds(500, 320, 150, 30);
+
+        //---- button8 ----
+        button8.setText("Plugins");
+        button8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                button8ActionPerformed(e);
+            }
+        });
+        contentPane.add(button8);
+        button8.setBounds(500, 350, 150, 30);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -326,5 +344,6 @@ public class WelcomeFrame extends JFrame {
     private JXImagePanel xImagePanel1;
     private JButton button6;
     private JButton button7;
+    private JButton button8;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

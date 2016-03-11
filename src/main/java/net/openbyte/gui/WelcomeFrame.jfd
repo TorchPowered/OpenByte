@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "5.2.2.2.228" Java: "1.8.0_72" encoding: "UTF-8"
+JFDML JFormDesigner: "5.2.3.0.281" Java: "1.8.0_40-release" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -38,8 +38,8 @@ new FormModel {
 				name: "label2"
 				"text": "Media"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 615
-				"y": 225
+				"x": 605
+				"y": 210
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button2"
@@ -47,7 +47,7 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button2ActionPerformed", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 500
-				"y": 245
+				"y": 230
 				"width": 151
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -56,7 +56,7 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button3ActionPerformed", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 500
-				"y": 275
+				"y": 260
 				"width": 150
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -98,7 +98,7 @@ new FormModel {
 				"width": 150
 				"height": 30
 				"x": 500
-				"y": 305
+				"y": 290
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button7"
@@ -108,7 +108,17 @@ new FormModel {
 				"width": 150
 				"height": 30
 				"x": 500
-				"y": 335
+				"y": 320
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button8"
+				"text": "Plugins"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button8ActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 150
+				"height": 30
+				"x": 500
+				"y": 350
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 10, 0 )

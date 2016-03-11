@@ -29,16 +29,47 @@
 package net.openbyte.gui.plugin;
 
 import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.*;
+
+import net.openbyte.Launch;
+import net.openbyte.data.file.PluginDescriptionFile;
+import net.openbyte.plugin.AbstractPlugin;
+import net.openbyte.plugin.PluginManager;
 import org.jdesktop.swingx.*;
 
 /**
  * @author Gary Lee
  */
 public class PluginListingFrame extends JDialog {
-    public PluginListingFrame() {
+    public static DefaultListModel plugins = new DefaultListModel();
+
+    public PluginListingFrame(Frame owner)
+    {
+        super(owner);
+        plugins.clear();
+        for (AbstractPlugin plugin : PluginManager.getAbstractPlugins()) {
+            plugins.addElement(plugin.name());
+        }
         initComponents();
+        list1.setModel(plugins);
+    }
+
+    private void list1ValueChanged(ListSelectionEvent e) {
+        String currentPluginSelectedName = (String) list1.getSelectedValue();
+        AbstractPlugin plugin = PluginManager.getPlugin(currentPluginSelectedName);
+        PluginDescriptionFile pdf = PluginManager.getPluginDescriptionFile(plugin);
+        try {
+            xImagePanel1.setImage(ImageIO.read(new URL(pdf.getLogoURL())));
+        } catch (IOException e1) {
+            Launch.logger.error("Failed to set logo image of plugin listing, " + plugin.name() + "!");
+        }
+        label2.setText(plugin.name());
+        textArea1.setText(pdf.getDescription());
     }
 
     private void initComponents() {
@@ -60,6 +91,12 @@ public class PluginListingFrame extends JDialog {
         //---- list1 ----
         list1.setBackground(new Color(238, 238, 238));
         list1.setBorder(new TitledBorder(LineBorder.createGrayLineBorder(), "Plugins"));
+        list1.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                list1ValueChanged(e);
+            }
+        });
         contentPane.add(list1);
         list1.setBounds(5, 5, 175, 470);
 
