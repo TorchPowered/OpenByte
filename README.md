@@ -1,4 +1,5 @@
 # OpenByte
+![OpenByte Intro Screenshot](https://raw.githubusercontent.com/TorchPowered/OpenByte/master/images/newfront.png)
 **Currently in early development, please report all bugs back to our repository issue tracker!**
 
 A Java IDE for Minecraft modification development.
