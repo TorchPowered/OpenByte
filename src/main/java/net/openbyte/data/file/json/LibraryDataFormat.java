@@ -30,5 +30,5 @@ import java.util.ArrayList;
  * A solution for storing project library data.
  */
 public class LibraryDataFormat {
-    ArrayList<LibraryEntry> libraries;
+    public ArrayList<LibraryEntry> libraries;
 }

@@ -35,6 +35,9 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
+import net.openbyte.data.file.json.LibraryDataFormat;
+import net.openbyte.data.file.json.LibraryEntry;
+import net.openbyte.data.file.json.LibrarySerializer;
 import net.openbyte.enums.ModificationAPI;
 import net.openbyte.event.UpdateFileEvent;
 import net.openbyte.event.handle.EventManager;
@@ -57,10 +60,16 @@ public class WorkFrame extends JFrame {
     private File selectedFile;
     private File selectedDirectory;
     private ModificationAPI api;
+    private LibraryDataFormat format;
 
     public WorkFrame(ModificationAPI api, File workDirectory) {
         this.workDirectory = workDirectory;
         this.api = api;
+        try {
+            format = LibrarySerializer.deserialize(new File(workDirectory, "libraries.json"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initComponents();
         KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
         menuItem4.setAccelerator(keyStroke);
@@ -69,6 +78,14 @@ public class WorkFrame extends JFrame {
         try {
             support.getJarManager().addCurrentJreClassFileSource();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            for (LibraryEntry entry : format.libraries) {
+                File entryJar = new File(entry.path);
+                support.getJarManager().addClassFileSource(entryJar);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (api == ModificationAPI.BUKKIT) {

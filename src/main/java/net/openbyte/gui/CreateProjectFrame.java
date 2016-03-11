@@ -32,6 +32,9 @@ import net.lingala.zip4j.core.ZipFile;
 import net.openbyte.Launch;
 import net.openbyte.data.Files;
 import net.openbyte.data.file.OpenProjectSolution;
+import net.openbyte.data.file.json.LibraryDataFormat;
+import net.openbyte.data.file.json.LibraryEntry;
+import net.openbyte.data.file.json.LibrarySerializer;
 import net.openbyte.enums.MinecraftVersion;
 import net.openbyte.enums.ModificationAPI;
 import org.apache.commons.exec.CommandLine;
@@ -43,6 +46,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -124,6 +128,8 @@ public class CreateProjectFrame extends JFrame {
         monitor.setProgress(20);
         monitor.setNote("Creating solution for project...");
         createSolutionFile();
+        monitor.setNote("Creating library solution for project...");
+        createLibrarySolution();
         monitor.setProgress(60);
         monitor.setNote("Cloning API...");
         cloneAPI();
@@ -167,6 +173,22 @@ public class CreateProjectFrame extends JFrame {
         solution.setProjectFolder(this.projectFolder);
         solution.setProjectName(projectName);
         solution.setModificationAPI(this.api);
+    }
+
+    private void createLibrarySolution() {
+        File libraryFile = new File(this.projectFolder, "libraries.json");
+        try {
+            libraryFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        LibraryDataFormat format = new LibraryDataFormat();
+        format.libraries = new ArrayList<LibraryEntry>();
+        try {
+            LibrarySerializer.serialize(libraryFile, format);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void cloneAPI(){

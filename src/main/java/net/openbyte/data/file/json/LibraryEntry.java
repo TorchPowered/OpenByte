@@ -28,5 +28,5 @@ package net.openbyte.data.file.json;
  * Represents a entry of a library with the location of the file.
  */
 public class LibraryEntry {
-     private String path;
+     public String path;
 }
