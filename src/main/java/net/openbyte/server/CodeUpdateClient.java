@@ -33,6 +33,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import net.openbyte.FileUtil;
+import net.openbyte.gui.SettingsFrame;
 import net.openbyte.server.util.ByteBufDecoders;
 import net.openbyte.server.util.PacketBuilder;
 
@@ -132,7 +133,7 @@ public class CodeUpdateClient {
             ByteBuf connectionPacket = new PacketBuilder()
                     .varInt(0x00)
                     .string(clientName)
-                    .string("example@example.org")
+                    .string(SettingsFrame.email)
                     .varInt(0)
                     .build();
             ctx.writeAndFlush(connectionPacket);

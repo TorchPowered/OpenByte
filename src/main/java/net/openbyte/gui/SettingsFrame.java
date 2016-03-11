@@ -40,11 +40,13 @@ import javax.swing.*;
  */
 public class SettingsFrame extends JDialog {
     public static boolean useSystem = true;
+    public static String email = "example@example.org";
 
     public SettingsFrame(Dialog owner) {
         super(owner);
         initComponents();
         this.label2.setText("Current Workspace Location: " + Files.WORKSPACE_DIRECTORY.getAbsolutePath());
+        this.label3.setText("Email (currently: " + email + "):");
         if(useSystem) {
             radioButton2.setSelected(true);
             radioButton3.setEnabled(false);
@@ -115,6 +117,14 @@ public class SettingsFrame extends JDialog {
         this.label2.setText("Current Workspace Location: " + Files.WORKSPACE_DIRECTORY.getAbsolutePath());
     }
 
+    private void button2ActionPerformed(ActionEvent e) {
+        if(textField2.getText().equals("") || textField2.getText().equals(email)) {
+            showErrorDialog("No new email has been specified.");
+            return;
+        }
+        email = textField2.getText();
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Gary Lee
@@ -126,6 +136,10 @@ public class SettingsFrame extends JDialog {
         label2 = new JLabel();
         radioButton2 = new JRadioButton();
         radioButton3 = new JRadioButton();
+        panel2 = new JPanel();
+        label3 = new JLabel();
+        textField2 = new JTextField();
+        button2 = new JButton();
 
         //======== this ========
         setTitle("Preferences");
@@ -214,6 +228,44 @@ public class SettingsFrame extends JDialog {
                 }
             }
             tabbedPane1.addTab("IDE", panel1);
+
+            //======== panel2 ========
+            {
+                panel2.setLayout(null);
+
+                //---- label3 ----
+                label3.setText("Email (currently: example@example.org):");
+                panel2.add(label3);
+                label3.setBounds(5, 10, 585, label3.getPreferredSize().height);
+                panel2.add(textField2);
+                textField2.setBounds(5, 25, 370, textField2.getPreferredSize().height);
+
+                //---- button2 ----
+                button2.setText("Update Email");
+                button2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        button2ActionPerformed(e);
+                    }
+                });
+                panel2.add(button2);
+                button2.setBounds(375, 25, 210, button2.getPreferredSize().height);
+
+                { // compute preferred size
+                    Dimension preferredSize = new Dimension();
+                    for(int i = 0; i < panel2.getComponentCount(); i++) {
+                        Rectangle bounds = panel2.getComponent(i).getBounds();
+                        preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                        preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                    }
+                    Insets insets = panel2.getInsets();
+                    preferredSize.width += insets.right;
+                    preferredSize.height += insets.bottom;
+                    panel2.setMinimumSize(preferredSize);
+                    panel2.setPreferredSize(preferredSize);
+                }
+            }
+            tabbedPane1.addTab("CodeUpdate", panel2);
         }
         contentPane.add(tabbedPane1, BorderLayout.CENTER);
         setSize(615, 210);
@@ -231,5 +283,9 @@ public class SettingsFrame extends JDialog {
     private JLabel label2;
     private JRadioButton radioButton2;
     private JRadioButton radioButton3;
+    private JPanel panel2;
+    private JLabel label3;
+    private JTextField textField2;
+    private JButton button2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
