@@ -75,3 +75,8 @@ task testCodeUpdate(type: org.gradle.api.tasks.JavaExec) {
     main = "net.openbyte.server.CodeUpdateClient"
     classpath = sourceSets.main.runtimeClasspath
 }
+
+task testEvents(type: org.gradle.api.tasks.JavaExec) {
+    main = "net.openbyte.event.handle.EventManager"
+    classpath = sourceSets.main.runtimeClasspath
+}

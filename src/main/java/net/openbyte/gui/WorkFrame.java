@@ -35,6 +35,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
+import net.openbyte.event.UpdateFileEvent;
+import net.openbyte.event.handle.EventManager;
 import net.openbyte.gui.logger.StreamCapturer;
 import net.openbyte.model.FileSystemModel;
 import org.apache.commons.exec.CommandLine;
@@ -121,6 +123,12 @@ public class WorkFrame extends JFrame {
             return;
         }
         byte[] textBytes = rSyntaxTextArea1.getText().getBytes();
+        UpdateFileEvent event = new UpdateFileEvent(selectedFile, rSyntaxTextArea1.getText());
+        try {
+            EventManager.getManager().callEvent(event);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
         try {
             FileOutputStream stream = new FileOutputStream(selectedFile);
             stream.write(textBytes);

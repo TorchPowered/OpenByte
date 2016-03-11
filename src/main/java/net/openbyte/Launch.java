@@ -26,6 +26,7 @@ package net.openbyte;
 
 import net.openbyte.data.Files;
 import net.openbyte.data.file.OpenProjectSolution;
+import net.openbyte.event.handle.EventManager;
 import net.openbyte.gui.WelcomeFrame;
 import net.openbyte.plugin.PluginManager;
 import org.apache.commons.io.FilenameUtils;
@@ -107,6 +108,8 @@ public class Launch {
 			logger.info("Something went wrong when applying the look and feel, using the default one...");
 			e.printStackTrace();
 		}
+        logger.info("Starting event manager...");
+        EventManager.init();
         logger.info("Detecting plugin files...");
         File[] pluginFiles = PluginManager.getPluginFiles(Files.PLUGINS_DIRECTORY);
         logger.info("Detected " + pluginFiles.length + " plugin files in the plugins directory!");
