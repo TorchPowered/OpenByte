@@ -376,7 +376,7 @@ public class CreateProjectFrame extends JFrame {
             contentPane.setMinimumSize(preferredSize);
             contentPane.setPreferredSize(preferredSize);
         }
-        setSize(465, 240);
+        setSize(480, 240);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
