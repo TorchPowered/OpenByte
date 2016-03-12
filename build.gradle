@@ -23,7 +23,7 @@
  */
 
 group 'net.openbyte'
-version '0.1-SNAPSHOT'
+version '2.0-SNAPSHOT'
 
 apply plugin: 'java'
 
