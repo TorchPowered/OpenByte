@@ -47,6 +47,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.*;
 
 /**
@@ -144,9 +146,13 @@ public class CreateProjectFrame extends JFrame {
                 }
             } else {
                 try {
-                    CommandLine commandLine = CommandLine.parse("sh " + new File(projectFolder, "decompile.sh").getAbsolutePath());
+                    CommandLine commandLine = CommandLine.parse("python " + new File(new File(projectFolder, "runtime"), "decompile.py").getAbsolutePath() + " $@");
+                    File runtimePythonDirectory = new File(projectFolder, "runtime");
+                    File decompilePython = new File(runtimePythonDirectory, "decompile.py");
+                    CommandLine authPy = CommandLine.parse("chmod 755 " + decompilePython.getAbsolutePath());
                     DefaultExecutor executor = new DefaultExecutor();
                     executor.setWorkingDirectory(projectFolder);
+                    executor.execute(authPy);
                     executor.execute(commandLine);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -212,7 +218,7 @@ public class CreateProjectFrame extends JFrame {
             }
         }
         if(this.api == ModificationAPI.MCP) {
-            String link = "http://download933.mediafire.com/130haka1szmg/3ww1inazlkamkcc/mcp924-beta1.zip";;
+            String link = "http://maven.torchpowered.gq/mcp_releases/mcp924.zip";;
             if(this.version == MinecraftVersion.BOUNTIFUL_UPDATE) {
                 link = "http://www.modcoderpack.com/website/sites/default/files/releases/mcp918.zip";
             }

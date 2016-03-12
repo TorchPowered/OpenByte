@@ -44,9 +44,11 @@ import net.openbyte.event.handle.EventManager;
 import net.openbyte.gui.logger.StreamCapturer;
 import net.openbyte.model.FileSystemModel;
 import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.fife.rsta.ac.java.JavaLanguageSupport;
+import org.fife.rsta.ac.java.classreader.attributes.Exceptions;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.*;
 import org.gradle.tooling.GradleConnector;
@@ -120,6 +122,28 @@ public class WorkFrame extends JFrame {
                 return null;
             }
         };
+        if(this.api == ModificationAPI.MCP) {
+            worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+                    if(System.getProperty("os.name").startsWith("Windows")) {
+                        Runtime.getRuntime().exec("cmd /c startclient.bat", null, workDirectory);
+                        return null;
+                    }
+                    try {
+                        CommandLine startClient = CommandLine.parse("python " + new File(new File(workDirectory, "runtime"), "startclient.py").getAbsolutePath() + " $@");
+                        CommandLine authClient = CommandLine.parse("chmod 755 " + new File(new File(workDirectory, "runtime"), "startclient.py").getAbsolutePath());
+                        DefaultExecutor executor = new DefaultExecutor();
+                        executor.setWorkingDirectory(workDirectory);
+                        executor.execute(authClient);
+                        executor.execute(startClient);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+            };
+        }
         worker.execute();
     }
 
@@ -136,6 +160,28 @@ public class WorkFrame extends JFrame {
                 return null;
             }
         };
+        if (this.api == ModificationAPI.MCP) {
+            worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+                    if (System.getProperty("os.name").startsWith("Windows")) {
+                        Runtime.getRuntime().exec("cmd /c startserver.bat", null, workDirectory);
+                        return null;
+                    }
+                    try {
+                        CommandLine startServer = CommandLine.parse("python " + new File(new File(workDirectory, "runtime"), "startserver.py").getAbsolutePath() + " $@");
+                        CommandLine authServer = CommandLine.parse("chmod 755 " + new File(new File(workDirectory, "runtime"), "startserver.py").getAbsolutePath());
+                        DefaultExecutor executor = new DefaultExecutor();
+                        executor.setWorkingDirectory(workDirectory);
+                        executor.execute(authServer);
+                        executor.execute(startServer);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+            };
+        }
         worker.execute();
     }
 
@@ -152,8 +198,38 @@ public class WorkFrame extends JFrame {
                 return null;
             }
         };
+        if(this.api == ModificationAPI.MCP) {
+            // recompile and reobfuscate
+            worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+                    if (System.getProperty("os.name").startsWith("Windows")) {
+                        Runtime.getRuntime().exec("cmd /c recompile.bat", null, workDirectory);
+                        Runtime.getRuntime().exec("cmd /c reobfuscate.bat", null, workDirectory);
+                        return null;
+                    }
+                    try {
+                        CommandLine recompile = CommandLine.parse("python " + new File(new File(workDirectory, "runtime"), "recompile.py").getAbsolutePath() + " $@");
+                        CommandLine reobfuscate = CommandLine.parse("python " + new File(new File(workDirectory, "runtime"), "reobfuscate.py").getAbsolutePath() + " $@");
+                        File recompilePy = new File(new File(workDirectory, "runtime"), "recompile.py");
+                        File reobfuscatePy = new File(new File(workDirectory, "runtime"), "reobfuscate.py");
+                        CommandLine authRecompile = CommandLine.parse("chmod 755 " + recompilePy.getAbsolutePath());
+                        CommandLine authReobfuscate = CommandLine.parse("chmod 755 " + reobfuscatePy.getAbsolutePath());
+                        DefaultExecutor executor = new DefaultExecutor();
+                        executor.setWorkingDirectory(workDirectory);
+                        executor.execute(authRecompile);
+                        executor.execute(authReobfuscate);
+                        executor.execute(recompile);
+                        executor.execute(reobfuscate);
+                        System.out.println("Finished building modification JAR.");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+            };
+        }
         worker.execute();
-        System.out.println("Finished building modification JAR.");
     }
 
     private void createUIComponents() {
