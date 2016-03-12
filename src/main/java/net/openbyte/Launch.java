@@ -65,7 +65,7 @@ public class Launch {
     /**
      * A double that updates every release and contains the current version.
      */
-    public static final double CURRENT_VERSION = 1.0;
+    public static final double CURRENT_VERSION = 2.0;
 
     /**
      * This is the main method that allows Java to initiate the program.
